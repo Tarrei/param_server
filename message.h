@@ -63,9 +63,9 @@ namespace ps{
 
 	struct message{
 		/*消息类型*/
-		static const int empty;
-		message():cmd(EMPTY),sender(empty),receiver(empty),timestamp(empty){}
+		static const int empty = 0;
 		enum Command {EMPTY, ADD_NODE, TERMINATE, ACK, HEARTBEAT};
+		message():cmd(EMPTY),sender(empty),receiver(empty),timestamp(empty){}
 		Command cmd;
 
 		int sender;
