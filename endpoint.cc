@@ -79,7 +79,7 @@ namespace ps {
 
 	void Endpoint::Serialize(message& msg, char** meta_buf, int* meta_size){
 		/*利用protobuf实现消息的序列化*/
-
+		meta meta；
 	}
 
 	void Endpoint::DeSerialize(){
