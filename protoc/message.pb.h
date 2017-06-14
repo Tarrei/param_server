@@ -35,9 +35,9 @@ namespace ps {
 class Meta;
 class MetaDefaultTypeInternal;
 extern MetaDefaultTypeInternal _Meta_default_instance_;
-class Meta_Node;
-class Meta_NodeDefaultTypeInternal;
-extern Meta_NodeDefaultTypeInternal _Meta_Node_default_instance_;
+class Meta_Node_;
+class Meta_Node_DefaultTypeInternal;
+extern Meta_Node_DefaultTypeInternal _Meta_Node__default_instance_;
 }  // namespace ps
 
 namespace ps {
@@ -56,87 +56,87 @@ void AddDescriptors();
 void InitDefaults();
 }  // namespace protobuf_message_2eproto
 
-enum Meta_Node_role_ {
-  Meta_Node_role__SCHEDULER = 0,
-  Meta_Node_role__SERVER = 1,
-  Meta_Node_role__WORKER = 2
+enum Meta_Node__Role_ {
+  Meta_Node__Role__SCHEDULER = 0,
+  Meta_Node__Role__SERVER = 1,
+  Meta_Node__Role__WORKER = 2
 };
-bool Meta_Node_role__IsValid(int value);
-const Meta_Node_role_ Meta_Node_role__role__MIN = Meta_Node_role__SCHEDULER;
-const Meta_Node_role_ Meta_Node_role__role__MAX = Meta_Node_role__WORKER;
-const int Meta_Node_role__role__ARRAYSIZE = Meta_Node_role__role__MAX + 1;
+bool Meta_Node__Role__IsValid(int value);
+const Meta_Node__Role_ Meta_Node__Role__Role__MIN = Meta_Node__Role__SCHEDULER;
+const Meta_Node__Role_ Meta_Node__Role__Role__MAX = Meta_Node__Role__WORKER;
+const int Meta_Node__Role__Role__ARRAYSIZE = Meta_Node__Role__Role__MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* Meta_Node_role__descriptor();
-inline const ::std::string& Meta_Node_role__Name(Meta_Node_role_ value) {
+const ::google::protobuf::EnumDescriptor* Meta_Node__Role__descriptor();
+inline const ::std::string& Meta_Node__Role__Name(Meta_Node__Role_ value) {
   return ::google::protobuf::internal::NameOfEnum(
-    Meta_Node_role__descriptor(), value);
+    Meta_Node__Role__descriptor(), value);
 }
-inline bool Meta_Node_role__Parse(
-    const ::std::string& name, Meta_Node_role_* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<Meta_Node_role_>(
-    Meta_Node_role__descriptor(), name, value);
+inline bool Meta_Node__Role__Parse(
+    const ::std::string& name, Meta_Node__Role_* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<Meta_Node__Role_>(
+    Meta_Node__Role__descriptor(), name, value);
 }
-enum Meta_command_ {
-  Meta_command__EMPTY = 0,
-  Meta_command__ADD_NODE = 1,
-  Meta_command__TERMINATE = 2,
-  Meta_command__ACK = 3,
-  Meta_command__HEARTBEAT = 4
+enum Meta_Command_ {
+  Meta_Command__EMPTY = 0,
+  Meta_Command__ADD_NODE = 1,
+  Meta_Command__TERMINATE = 2,
+  Meta_Command__ACK = 3,
+  Meta_Command__HEARTBEAT = 4
 };
-bool Meta_command__IsValid(int value);
-const Meta_command_ Meta_command__command__MIN = Meta_command__EMPTY;
-const Meta_command_ Meta_command__command__MAX = Meta_command__HEARTBEAT;
-const int Meta_command__command__ARRAYSIZE = Meta_command__command__MAX + 1;
+bool Meta_Command__IsValid(int value);
+const Meta_Command_ Meta_Command__Command__MIN = Meta_Command__EMPTY;
+const Meta_Command_ Meta_Command__Command__MAX = Meta_Command__HEARTBEAT;
+const int Meta_Command__Command__ARRAYSIZE = Meta_Command__Command__MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* Meta_command__descriptor();
-inline const ::std::string& Meta_command__Name(Meta_command_ value) {
+const ::google::protobuf::EnumDescriptor* Meta_Command__descriptor();
+inline const ::std::string& Meta_Command__Name(Meta_Command_ value) {
   return ::google::protobuf::internal::NameOfEnum(
-    Meta_command__descriptor(), value);
+    Meta_Command__descriptor(), value);
 }
-inline bool Meta_command__Parse(
-    const ::std::string& name, Meta_command_* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<Meta_command_>(
-    Meta_command__descriptor(), name, value);
+inline bool Meta_Command__Parse(
+    const ::std::string& name, Meta_Command_* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<Meta_Command_>(
+    Meta_Command__descriptor(), name, value);
 }
-enum Meta_type_ {
-  Meta_type__CHAR = 0,
-  Meta_type__INT8 = 1,
-  Meta_type__INT16 = 2,
-  Meta_type__INT32 = 3,
-  Meta_type__INT64 = 4,
-  Meta_type__UINT8 = 5,
-  Meta_type__UINT16 = 6,
-  Meta_type__UINT32 = 7,
-  Meta_type__UINT64 = 8,
-  Meta_type__FLOAT = 9,
-  Meta_type__DOUBLE = 10,
-  Meta_type__OTHER = 11
+enum Meta_t_ {
+  Meta_t__CHAR = 0,
+  Meta_t__INT8 = 1,
+  Meta_t__INT16 = 2,
+  Meta_t__INT32 = 3,
+  Meta_t__INT64 = 4,
+  Meta_t__UINT8 = 5,
+  Meta_t__UINT16 = 6,
+  Meta_t__UINT32 = 7,
+  Meta_t__UINT64 = 8,
+  Meta_t__FLOAT = 9,
+  Meta_t__DOUBLE = 10,
+  Meta_t__OTHER = 11
 };
-bool Meta_type__IsValid(int value);
-const Meta_type_ Meta_type__type__MIN = Meta_type__CHAR;
-const Meta_type_ Meta_type__type__MAX = Meta_type__OTHER;
-const int Meta_type__type__ARRAYSIZE = Meta_type__type__MAX + 1;
+bool Meta_t__IsValid(int value);
+const Meta_t_ Meta_t__t__MIN = Meta_t__CHAR;
+const Meta_t_ Meta_t__t__MAX = Meta_t__OTHER;
+const int Meta_t__t__ARRAYSIZE = Meta_t__t__MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* Meta_type__descriptor();
-inline const ::std::string& Meta_type__Name(Meta_type_ value) {
+const ::google::protobuf::EnumDescriptor* Meta_t__descriptor();
+inline const ::std::string& Meta_t__Name(Meta_t_ value) {
   return ::google::protobuf::internal::NameOfEnum(
-    Meta_type__descriptor(), value);
+    Meta_t__descriptor(), value);
 }
-inline bool Meta_type__Parse(
-    const ::std::string& name, Meta_type_* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<Meta_type_>(
-    Meta_type__descriptor(), name, value);
+inline bool Meta_t__Parse(
+    const ::std::string& name, Meta_t_* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<Meta_t_>(
+    Meta_t__descriptor(), name, value);
 }
 // ===================================================================
 
-class Meta_Node : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ps.Meta.Node) */ {
+class Meta_Node_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ps.Meta.Node_) */ {
  public:
-  Meta_Node();
-  virtual ~Meta_Node();
+  Meta_Node_();
+  virtual ~Meta_Node_();
 
-  Meta_Node(const Meta_Node& from);
+  Meta_Node_(const Meta_Node_& from);
 
-  inline Meta_Node& operator=(const Meta_Node& from) {
+  inline Meta_Node_& operator=(const Meta_Node_& from) {
     CopyFrom(from);
     return *this;
   }
@@ -150,26 +150,26 @@ class Meta_Node : public ::google::protobuf::Message /* @@protoc_insertion_point
   }
 
   static const ::google::protobuf::Descriptor* descriptor();
-  static const Meta_Node& default_instance();
+  static const Meta_Node_& default_instance();
 
-  static inline const Meta_Node* internal_default_instance() {
-    return reinterpret_cast<const Meta_Node*>(
-               &_Meta_Node_default_instance_);
+  static inline const Meta_Node_* internal_default_instance() {
+    return reinterpret_cast<const Meta_Node_*>(
+               &_Meta_Node__default_instance_);
   }
   static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
     0;
 
-  void Swap(Meta_Node* other);
+  void Swap(Meta_Node_* other);
 
   // implements Message ----------------------------------------------
 
-  inline Meta_Node* New() const PROTOBUF_FINAL { return New(NULL); }
+  inline Meta_Node_* New() const PROTOBUF_FINAL { return New(NULL); }
 
-  Meta_Node* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  Meta_Node_* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
   void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
   void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
-  void CopyFrom(const Meta_Node& from);
-  void MergeFrom(const Meta_Node& from);
+  void CopyFrom(const Meta_Node_& from);
+  void MergeFrom(const Meta_Node_& from);
   void Clear() PROTOBUF_FINAL;
   bool IsInitialized() const PROTOBUF_FINAL;
 
@@ -185,7 +185,7 @@ class Meta_Node : public ::google::protobuf::Message /* @@protoc_insertion_point
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const PROTOBUF_FINAL;
-  void InternalSwap(Meta_Node* other);
+  void InternalSwap(Meta_Node_* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return NULL;
@@ -199,32 +199,32 @@ class Meta_Node : public ::google::protobuf::Message /* @@protoc_insertion_point
 
   // nested types ----------------------------------------------------
 
-  typedef Meta_Node_role_ role_;
-  static const role_ SCHEDULER =
-    Meta_Node_role__SCHEDULER;
-  static const role_ SERVER =
-    Meta_Node_role__SERVER;
-  static const role_ WORKER =
-    Meta_Node_role__WORKER;
-  static inline bool role__IsValid(int value) {
-    return Meta_Node_role__IsValid(value);
+  typedef Meta_Node__Role_ Role_;
+  static const Role_ SCHEDULER =
+    Meta_Node__Role__SCHEDULER;
+  static const Role_ SERVER =
+    Meta_Node__Role__SERVER;
+  static const Role_ WORKER =
+    Meta_Node__Role__WORKER;
+  static inline bool Role__IsValid(int value) {
+    return Meta_Node__Role__IsValid(value);
   }
-  static const role_ role__MIN =
-    Meta_Node_role__role__MIN;
-  static const role_ role__MAX =
-    Meta_Node_role__role__MAX;
-  static const int role__ARRAYSIZE =
-    Meta_Node_role__role__ARRAYSIZE;
+  static const Role_ Role__MIN =
+    Meta_Node__Role__Role__MIN;
+  static const Role_ Role__MAX =
+    Meta_Node__Role__Role__MAX;
+  static const int Role__ARRAYSIZE =
+    Meta_Node__Role__Role__ARRAYSIZE;
   static inline const ::google::protobuf::EnumDescriptor*
-  role__descriptor() {
-    return Meta_Node_role__descriptor();
+  Role__descriptor() {
+    return Meta_Node__Role__descriptor();
   }
-  static inline const ::std::string& role__Name(role_ value) {
-    return Meta_Node_role__Name(value);
+  static inline const ::std::string& Role__Name(Role_ value) {
+    return Meta_Node__Role__Name(value);
   }
-  static inline bool role__Parse(const ::std::string& name,
-      role_* value) {
-    return Meta_Node_role__Parse(name, value);
+  static inline bool Role__Parse(const ::std::string& name,
+      Role_* value) {
+    return Meta_Node__Role__Parse(name, value);
   }
 
   // accessors -------------------------------------------------------
@@ -244,12 +244,12 @@ class Meta_Node : public ::google::protobuf::Message /* @@protoc_insertion_point
   ::std::string* release_hostname();
   void set_allocated_hostname(::std::string* hostname);
 
-  // required .ps.Meta.Node.role_ role = 1;
+  // required int32 role = 1;
   bool has_role() const;
   void clear_role();
   static const int kRoleFieldNumber = 1;
-  ::ps::Meta_Node_role_ role() const;
-  void set_role(::ps::Meta_Node_role_ value);
+  ::google::protobuf::int32 role() const;
+  void set_role(::google::protobuf::int32 value);
 
   // required int32 id = 2;
   bool has_id() const;
@@ -272,7 +272,7 @@ class Meta_Node : public ::google::protobuf::Message /* @@protoc_insertion_point
   bool is_recovery() const;
   void set_is_recovery(bool value);
 
-  // @@protoc_insertion_point(class_scope:ps.Meta.Node)
+  // @@protoc_insertion_point(class_scope:ps.Meta.Node_)
  private:
   void set_has_role();
   void clear_has_role();
@@ -292,7 +292,7 @@ class Meta_Node : public ::google::protobuf::Message /* @@protoc_insertion_point
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr hostname_;
-  int role_;
+  ::google::protobuf::int32 role_;
   ::google::protobuf::int32 id_;
   ::google::protobuf::int32 port_;
   bool is_recovery_;
@@ -370,116 +370,118 @@ class Meta : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 
   // nested types ----------------------------------------------------
 
-  typedef Meta_Node Node;
+  typedef Meta_Node_ Node_;
 
-  typedef Meta_command_ command_;
-  static const command_ EMPTY =
-    Meta_command__EMPTY;
-  static const command_ ADD_NODE =
-    Meta_command__ADD_NODE;
-  static const command_ TERMINATE =
-    Meta_command__TERMINATE;
-  static const command_ ACK =
-    Meta_command__ACK;
-  static const command_ HEARTBEAT =
-    Meta_command__HEARTBEAT;
-  static inline bool command__IsValid(int value) {
-    return Meta_command__IsValid(value);
+  typedef Meta_Command_ Command_;
+  static const Command_ EMPTY =
+    Meta_Command__EMPTY;
+  static const Command_ ADD_NODE =
+    Meta_Command__ADD_NODE;
+  static const Command_ TERMINATE =
+    Meta_Command__TERMINATE;
+  static const Command_ ACK =
+    Meta_Command__ACK;
+  static const Command_ HEARTBEAT =
+    Meta_Command__HEARTBEAT;
+  static inline bool Command__IsValid(int value) {
+    return Meta_Command__IsValid(value);
   }
-  static const command_ command__MIN =
-    Meta_command__command__MIN;
-  static const command_ command__MAX =
-    Meta_command__command__MAX;
-  static const int command__ARRAYSIZE =
-    Meta_command__command__ARRAYSIZE;
+  static const Command_ Command__MIN =
+    Meta_Command__Command__MIN;
+  static const Command_ Command__MAX =
+    Meta_Command__Command__MAX;
+  static const int Command__ARRAYSIZE =
+    Meta_Command__Command__ARRAYSIZE;
   static inline const ::google::protobuf::EnumDescriptor*
-  command__descriptor() {
-    return Meta_command__descriptor();
+  Command__descriptor() {
+    return Meta_Command__descriptor();
   }
-  static inline const ::std::string& command__Name(command_ value) {
-    return Meta_command__Name(value);
+  static inline const ::std::string& Command__Name(Command_ value) {
+    return Meta_Command__Name(value);
   }
-  static inline bool command__Parse(const ::std::string& name,
-      command_* value) {
-    return Meta_command__Parse(name, value);
+  static inline bool Command__Parse(const ::std::string& name,
+      Command_* value) {
+    return Meta_Command__Parse(name, value);
   }
 
-  typedef Meta_type_ type_;
-  static const type_ CHAR =
-    Meta_type__CHAR;
-  static const type_ INT8 =
-    Meta_type__INT8;
-  static const type_ INT16 =
-    Meta_type__INT16;
-  static const type_ INT32 =
-    Meta_type__INT32;
-  static const type_ INT64 =
-    Meta_type__INT64;
-  static const type_ UINT8 =
-    Meta_type__UINT8;
-  static const type_ UINT16 =
-    Meta_type__UINT16;
-  static const type_ UINT32 =
-    Meta_type__UINT32;
-  static const type_ UINT64 =
-    Meta_type__UINT64;
-  static const type_ FLOAT =
-    Meta_type__FLOAT;
-  static const type_ DOUBLE =
-    Meta_type__DOUBLE;
-  static const type_ OTHER =
-    Meta_type__OTHER;
-  static inline bool type__IsValid(int value) {
-    return Meta_type__IsValid(value);
+  typedef Meta_t_ t_;
+  static const t_ CHAR =
+    Meta_t__CHAR;
+  static const t_ INT8 =
+    Meta_t__INT8;
+  static const t_ INT16 =
+    Meta_t__INT16;
+  static const t_ INT32 =
+    Meta_t__INT32;
+  static const t_ INT64 =
+    Meta_t__INT64;
+  static const t_ UINT8 =
+    Meta_t__UINT8;
+  static const t_ UINT16 =
+    Meta_t__UINT16;
+  static const t_ UINT32 =
+    Meta_t__UINT32;
+  static const t_ UINT64 =
+    Meta_t__UINT64;
+  static const t_ FLOAT =
+    Meta_t__FLOAT;
+  static const t_ DOUBLE =
+    Meta_t__DOUBLE;
+  static const t_ OTHER =
+    Meta_t__OTHER;
+  static inline bool t__IsValid(int value) {
+    return Meta_t__IsValid(value);
   }
-  static const type_ type__MIN =
-    Meta_type__type__MIN;
-  static const type_ type__MAX =
-    Meta_type__type__MAX;
-  static const int type__ARRAYSIZE =
-    Meta_type__type__ARRAYSIZE;
+  static const t_ t__MIN =
+    Meta_t__t__MIN;
+  static const t_ t__MAX =
+    Meta_t__t__MAX;
+  static const int t__ARRAYSIZE =
+    Meta_t__t__ARRAYSIZE;
   static inline const ::google::protobuf::EnumDescriptor*
-  type__descriptor() {
-    return Meta_type__descriptor();
+  t__descriptor() {
+    return Meta_t__descriptor();
   }
-  static inline const ::std::string& type__Name(type_ value) {
-    return Meta_type__Name(value);
+  static inline const ::std::string& t__Name(t_ value) {
+    return Meta_t__Name(value);
   }
-  static inline bool type__Parse(const ::std::string& name,
-      type_* value) {
-    return Meta_type__Parse(name, value);
+  static inline bool t__Parse(const ::std::string& name,
+      t_* value) {
+    return Meta_t__Parse(name, value);
   }
 
   // accessors -------------------------------------------------------
 
-  // repeated .ps.Meta.Node node = 7;
+  // repeated .ps.Meta.Node_ node = 7;
   int node_size() const;
   void clear_node();
   static const int kNodeFieldNumber = 7;
-  const ::ps::Meta_Node& node(int index) const;
-  ::ps::Meta_Node* mutable_node(int index);
-  ::ps::Meta_Node* add_node();
-  ::google::protobuf::RepeatedPtrField< ::ps::Meta_Node >*
+  const ::ps::Meta_Node_& node(int index) const;
+  ::ps::Meta_Node_* mutable_node(int index);
+  ::ps::Meta_Node_* add_node();
+  ::google::protobuf::RepeatedPtrField< ::ps::Meta_Node_ >*
       mutable_node();
-  const ::google::protobuf::RepeatedPtrField< ::ps::Meta_Node >&
+  const ::google::protobuf::RepeatedPtrField< ::ps::Meta_Node_ >&
       node() const;
 
-  // repeated .ps.Meta.type_ data_type = 8;
+  // repeated int32 data_type = 8;
   int data_type_size() const;
   void clear_data_type();
   static const int kDataTypeFieldNumber = 8;
-  ::ps::Meta_type_ data_type(int index) const;
-  void set_data_type(int index, ::ps::Meta_type_ value);
-  void add_data_type(::ps::Meta_type_ value);
-  const ::google::protobuf::RepeatedField<int>& data_type() const;
-  ::google::protobuf::RepeatedField<int>* mutable_data_type();
+  ::google::protobuf::int32 data_type(int index) const;
+  void set_data_type(int index, ::google::protobuf::int32 value);
+  void add_data_type(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      data_type() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_data_type();
 
-  // required .ps.Meta.command_ cmd = 1;
+  // required int32 cmd = 1;
   bool has_cmd() const;
   void clear_cmd();
   static const int kCmdFieldNumber = 1;
-  ::ps::Meta_command_ cmd() const;
-  void set_cmd(::ps::Meta_command_ value);
+  ::google::protobuf::int32 cmd() const;
+  void set_cmd(::google::protobuf::int32 value);
 
   // required int32 sender = 2;
   bool has_sender() const;
@@ -537,9 +539,9 @@ class Meta : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
-  ::google::protobuf::RepeatedPtrField< ::ps::Meta_Node > node_;
-  ::google::protobuf::RepeatedField<int> data_type_;
-  int cmd_;
+  ::google::protobuf::RepeatedPtrField< ::ps::Meta_Node_ > node_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > data_type_;
+  ::google::protobuf::int32 cmd_;
   ::google::protobuf::int32 sender_;
   ::google::protobuf::int32 receiver_;
   ::google::protobuf::int32 timestamp_;
@@ -553,173 +555,172 @@ class Meta : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// Meta_Node
+// Meta_Node_
 
-// required .ps.Meta.Node.role_ role = 1;
-inline bool Meta_Node::has_role() const {
+// required int32 role = 1;
+inline bool Meta_Node_::has_role() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void Meta_Node::set_has_role() {
+inline void Meta_Node_::set_has_role() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void Meta_Node::clear_has_role() {
+inline void Meta_Node_::clear_has_role() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void Meta_Node::clear_role() {
+inline void Meta_Node_::clear_role() {
   role_ = 0;
   clear_has_role();
 }
-inline ::ps::Meta_Node_role_ Meta_Node::role() const {
-  // @@protoc_insertion_point(field_get:ps.Meta.Node.role)
-  return static_cast< ::ps::Meta_Node_role_ >(role_);
+inline ::google::protobuf::int32 Meta_Node_::role() const {
+  // @@protoc_insertion_point(field_get:ps.Meta.Node_.role)
+  return role_;
 }
-inline void Meta_Node::set_role(::ps::Meta_Node_role_ value) {
-  assert(::ps::Meta_Node_role__IsValid(value));
+inline void Meta_Node_::set_role(::google::protobuf::int32 value) {
   set_has_role();
   role_ = value;
-  // @@protoc_insertion_point(field_set:ps.Meta.Node.role)
+  // @@protoc_insertion_point(field_set:ps.Meta.Node_.role)
 }
 
 // required int32 id = 2;
-inline bool Meta_Node::has_id() const {
+inline bool Meta_Node_::has_id() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void Meta_Node::set_has_id() {
+inline void Meta_Node_::set_has_id() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void Meta_Node::clear_has_id() {
+inline void Meta_Node_::clear_has_id() {
   _has_bits_[0] &= ~0x00000004u;
 }
-inline void Meta_Node::clear_id() {
+inline void Meta_Node_::clear_id() {
   id_ = 0;
   clear_has_id();
 }
-inline ::google::protobuf::int32 Meta_Node::id() const {
-  // @@protoc_insertion_point(field_get:ps.Meta.Node.id)
+inline ::google::protobuf::int32 Meta_Node_::id() const {
+  // @@protoc_insertion_point(field_get:ps.Meta.Node_.id)
   return id_;
 }
-inline void Meta_Node::set_id(::google::protobuf::int32 value) {
+inline void Meta_Node_::set_id(::google::protobuf::int32 value) {
   set_has_id();
   id_ = value;
-  // @@protoc_insertion_point(field_set:ps.Meta.Node.id)
+  // @@protoc_insertion_point(field_set:ps.Meta.Node_.id)
 }
 
 // required string hostname = 3;
-inline bool Meta_Node::has_hostname() const {
+inline bool Meta_Node_::has_hostname() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void Meta_Node::set_has_hostname() {
+inline void Meta_Node_::set_has_hostname() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void Meta_Node::clear_has_hostname() {
+inline void Meta_Node_::clear_has_hostname() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void Meta_Node::clear_hostname() {
+inline void Meta_Node_::clear_hostname() {
   hostname_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   clear_has_hostname();
 }
-inline const ::std::string& Meta_Node::hostname() const {
-  // @@protoc_insertion_point(field_get:ps.Meta.Node.hostname)
+inline const ::std::string& Meta_Node_::hostname() const {
+  // @@protoc_insertion_point(field_get:ps.Meta.Node_.hostname)
   return hostname_.GetNoArena();
 }
-inline void Meta_Node::set_hostname(const ::std::string& value) {
+inline void Meta_Node_::set_hostname(const ::std::string& value) {
   set_has_hostname();
   hostname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:ps.Meta.Node.hostname)
+  // @@protoc_insertion_point(field_set:ps.Meta.Node_.hostname)
 }
 #if LANG_CXX11
-inline void Meta_Node::set_hostname(::std::string&& value) {
+inline void Meta_Node_::set_hostname(::std::string&& value) {
   set_has_hostname();
   hostname_.SetNoArena(
     &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:ps.Meta.Node.hostname)
+  // @@protoc_insertion_point(field_set_rvalue:ps.Meta.Node_.hostname)
 }
 #endif
-inline void Meta_Node::set_hostname(const char* value) {
+inline void Meta_Node_::set_hostname(const char* value) {
   GOOGLE_DCHECK(value != NULL);
   set_has_hostname();
   hostname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:ps.Meta.Node.hostname)
+  // @@protoc_insertion_point(field_set_char:ps.Meta.Node_.hostname)
 }
-inline void Meta_Node::set_hostname(const char* value, size_t size) {
+inline void Meta_Node_::set_hostname(const char* value, size_t size) {
   set_has_hostname();
   hostname_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:ps.Meta.Node.hostname)
+  // @@protoc_insertion_point(field_set_pointer:ps.Meta.Node_.hostname)
 }
-inline ::std::string* Meta_Node::mutable_hostname() {
+inline ::std::string* Meta_Node_::mutable_hostname() {
   set_has_hostname();
-  // @@protoc_insertion_point(field_mutable:ps.Meta.Node.hostname)
+  // @@protoc_insertion_point(field_mutable:ps.Meta.Node_.hostname)
   return hostname_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* Meta_Node::release_hostname() {
-  // @@protoc_insertion_point(field_release:ps.Meta.Node.hostname)
+inline ::std::string* Meta_Node_::release_hostname() {
+  // @@protoc_insertion_point(field_release:ps.Meta.Node_.hostname)
   clear_has_hostname();
   return hostname_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void Meta_Node::set_allocated_hostname(::std::string* hostname) {
+inline void Meta_Node_::set_allocated_hostname(::std::string* hostname) {
   if (hostname != NULL) {
     set_has_hostname();
   } else {
     clear_has_hostname();
   }
   hostname_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), hostname);
-  // @@protoc_insertion_point(field_set_allocated:ps.Meta.Node.hostname)
+  // @@protoc_insertion_point(field_set_allocated:ps.Meta.Node_.hostname)
 }
 
 // required int32 port = 4;
-inline bool Meta_Node::has_port() const {
+inline bool Meta_Node_::has_port() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
-inline void Meta_Node::set_has_port() {
+inline void Meta_Node_::set_has_port() {
   _has_bits_[0] |= 0x00000008u;
 }
-inline void Meta_Node::clear_has_port() {
+inline void Meta_Node_::clear_has_port() {
   _has_bits_[0] &= ~0x00000008u;
 }
-inline void Meta_Node::clear_port() {
+inline void Meta_Node_::clear_port() {
   port_ = 0;
   clear_has_port();
 }
-inline ::google::protobuf::int32 Meta_Node::port() const {
-  // @@protoc_insertion_point(field_get:ps.Meta.Node.port)
+inline ::google::protobuf::int32 Meta_Node_::port() const {
+  // @@protoc_insertion_point(field_get:ps.Meta.Node_.port)
   return port_;
 }
-inline void Meta_Node::set_port(::google::protobuf::int32 value) {
+inline void Meta_Node_::set_port(::google::protobuf::int32 value) {
   set_has_port();
   port_ = value;
-  // @@protoc_insertion_point(field_set:ps.Meta.Node.port)
+  // @@protoc_insertion_point(field_set:ps.Meta.Node_.port)
 }
 
 // optional bool is_recovery = 5;
-inline bool Meta_Node::has_is_recovery() const {
+inline bool Meta_Node_::has_is_recovery() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
-inline void Meta_Node::set_has_is_recovery() {
+inline void Meta_Node_::set_has_is_recovery() {
   _has_bits_[0] |= 0x00000010u;
 }
-inline void Meta_Node::clear_has_is_recovery() {
+inline void Meta_Node_::clear_has_is_recovery() {
   _has_bits_[0] &= ~0x00000010u;
 }
-inline void Meta_Node::clear_is_recovery() {
+inline void Meta_Node_::clear_is_recovery() {
   is_recovery_ = false;
   clear_has_is_recovery();
 }
-inline bool Meta_Node::is_recovery() const {
-  // @@protoc_insertion_point(field_get:ps.Meta.Node.is_recovery)
+inline bool Meta_Node_::is_recovery() const {
+  // @@protoc_insertion_point(field_get:ps.Meta.Node_.is_recovery)
   return is_recovery_;
 }
-inline void Meta_Node::set_is_recovery(bool value) {
+inline void Meta_Node_::set_is_recovery(bool value) {
   set_has_is_recovery();
   is_recovery_ = value;
-  // @@protoc_insertion_point(field_set:ps.Meta.Node.is_recovery)
+  // @@protoc_insertion_point(field_set:ps.Meta.Node_.is_recovery)
 }
 
 // -------------------------------------------------------------------
 
 // Meta
 
-// required .ps.Meta.command_ cmd = 1;
+// required int32 cmd = 1;
 inline bool Meta::has_cmd() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -733,12 +734,11 @@ inline void Meta::clear_cmd() {
   cmd_ = 0;
   clear_has_cmd();
 }
-inline ::ps::Meta_command_ Meta::cmd() const {
+inline ::google::protobuf::int32 Meta::cmd() const {
   // @@protoc_insertion_point(field_get:ps.Meta.cmd)
-  return static_cast< ::ps::Meta_command_ >(cmd_);
+  return cmd_;
 }
-inline void Meta::set_cmd(::ps::Meta_command_ value) {
-  assert(::ps::Meta_command__IsValid(value));
+inline void Meta::set_cmd(::google::protobuf::int32 value) {
   set_has_cmd();
   cmd_ = value;
   // @@protoc_insertion_point(field_set:ps.Meta.cmd)
@@ -864,63 +864,61 @@ inline void Meta::set_push(bool value) {
   // @@protoc_insertion_point(field_set:ps.Meta.push)
 }
 
-// repeated .ps.Meta.Node node = 7;
+// repeated .ps.Meta.Node_ node = 7;
 inline int Meta::node_size() const {
   return node_.size();
 }
 inline void Meta::clear_node() {
   node_.Clear();
 }
-inline const ::ps::Meta_Node& Meta::node(int index) const {
+inline const ::ps::Meta_Node_& Meta::node(int index) const {
   // @@protoc_insertion_point(field_get:ps.Meta.node)
   return node_.Get(index);
 }
-inline ::ps::Meta_Node* Meta::mutable_node(int index) {
+inline ::ps::Meta_Node_* Meta::mutable_node(int index) {
   // @@protoc_insertion_point(field_mutable:ps.Meta.node)
   return node_.Mutable(index);
 }
-inline ::ps::Meta_Node* Meta::add_node() {
+inline ::ps::Meta_Node_* Meta::add_node() {
   // @@protoc_insertion_point(field_add:ps.Meta.node)
   return node_.Add();
 }
-inline ::google::protobuf::RepeatedPtrField< ::ps::Meta_Node >*
+inline ::google::protobuf::RepeatedPtrField< ::ps::Meta_Node_ >*
 Meta::mutable_node() {
   // @@protoc_insertion_point(field_mutable_list:ps.Meta.node)
   return &node_;
 }
-inline const ::google::protobuf::RepeatedPtrField< ::ps::Meta_Node >&
+inline const ::google::protobuf::RepeatedPtrField< ::ps::Meta_Node_ >&
 Meta::node() const {
   // @@protoc_insertion_point(field_list:ps.Meta.node)
   return node_;
 }
 
-// repeated .ps.Meta.type_ data_type = 8;
+// repeated int32 data_type = 8;
 inline int Meta::data_type_size() const {
   return data_type_.size();
 }
 inline void Meta::clear_data_type() {
   data_type_.Clear();
 }
-inline ::ps::Meta_type_ Meta::data_type(int index) const {
+inline ::google::protobuf::int32 Meta::data_type(int index) const {
   // @@protoc_insertion_point(field_get:ps.Meta.data_type)
-  return static_cast< ::ps::Meta_type_ >(data_type_.Get(index));
+  return data_type_.Get(index);
 }
-inline void Meta::set_data_type(int index, ::ps::Meta_type_ value) {
-  assert(::ps::Meta_type__IsValid(value));
+inline void Meta::set_data_type(int index, ::google::protobuf::int32 value) {
   data_type_.Set(index, value);
   // @@protoc_insertion_point(field_set:ps.Meta.data_type)
 }
-inline void Meta::add_data_type(::ps::Meta_type_ value) {
-  assert(::ps::Meta_type__IsValid(value));
+inline void Meta::add_data_type(::google::protobuf::int32 value) {
   data_type_.Add(value);
   // @@protoc_insertion_point(field_add:ps.Meta.data_type)
 }
-inline const ::google::protobuf::RepeatedField<int>&
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
 Meta::data_type() const {
   // @@protoc_insertion_point(field_list:ps.Meta.data_type)
   return data_type_;
 }
-inline ::google::protobuf::RepeatedField<int>*
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
 Meta::mutable_data_type() {
   // @@protoc_insertion_point(field_mutable_list:ps.Meta.data_type)
   return &data_type_;
@@ -939,20 +937,20 @@ Meta::mutable_data_type() {
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::ps::Meta_Node_role_> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::ps::Meta_Node__Role_> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::ps::Meta_Node_role_>() {
-  return ::ps::Meta_Node_role__descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ps::Meta_Node__Role_>() {
+  return ::ps::Meta_Node__Role__descriptor();
 }
-template <> struct is_proto_enum< ::ps::Meta_command_> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::ps::Meta_Command_> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::ps::Meta_command_>() {
-  return ::ps::Meta_command__descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ps::Meta_Command_>() {
+  return ::ps::Meta_Command__descriptor();
 }
-template <> struct is_proto_enum< ::ps::Meta_type_> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::ps::Meta_t_> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::ps::Meta_type_>() {
-  return ::ps::Meta_type__descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::ps::Meta_t_>() {
+  return ::ps::Meta_t__descriptor();
 }
 
 }  // namespace protobuf

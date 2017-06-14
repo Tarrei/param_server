@@ -28,6 +28,8 @@ namespace ps{
 		void Start();
 		void Stop();
 		void Send(message& msg);
+		void Serialize(message& msg, char** meta_buf, int* meta_size);
+		void DeSerialize();
 	private:
 		/*连接某个节点*/
 		void Connect(const Node& node);

@@ -3,7 +3,7 @@ package ps;
  
 message Meta {
 
-  enum command_ {
+  enum Command_ {
     EMPTY = 0;
     ADD_NODE = 1;
     TERMINATE = 2;
@@ -11,29 +11,31 @@ message Meta {
     HEARTBEAT = 4;
   }
 
-  required command_ cmd = 1;
+  //do not use the enum
+  required int32 cmd = 1;
   required int32 sender = 2;
   required int32 receiver = 3;
   required int32 timestamp = 4;
   required bool request = 5;
   required bool push = 6;
 
-  message Node {
-    enum role_{
+  message Node_ {
+    enum Role_{
     SCHEDULER = 0;
     SERVER = 1;
     WORKER = 2;
     }
-    required role_ role = 1;
+    //do not use the enum
+    required int32 role = 1;
     required int32 id = 2;
     required string hostname = 3;
     required int32 port = 4;
     optional bool is_recovery = 5;
   }
   
-  repeated Node node = 7;
+  repeated Node_ node = 7;
 
-  enum type_ {
+  enum t_ {
     CHAR = 0;
     INT8 =1;
     INT16 = 2;
@@ -46,8 +48,9 @@ message Meta {
     FLOAT = 9;
     DOUBLE = 10;
     OTHER = 11;
-  };
+  }
 
-  repeated type_ data_type = 8;
+  //do not use the enum
+  repeated int32 data_type = 8;
 
 }

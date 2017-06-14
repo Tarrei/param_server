@@ -64,14 +64,14 @@ namespace ps {
 			zmq_send (senders_[SchedulerID], "hello", 5, 0);
 			cout<<"hello"<<endl;
 			message msg;
-			message.sender=current_.id;
-			message.receiver=scheduler_.id;
-			message.timestamp=++timestamp;
-			message.request=true;
-			message.cmd=ADD_NODE;
-			message.push=false;
+			msg.sender=current_.id;
+			msg.receiver=scheduler_.id;
+			msg.timestamp=++timestamp;
+			msg.request=true;
+			msg.cmd=message::ADD_NODE;
+			msg.push=false;
 			//message.node=current_;//把单个节点信息扩展到多个
-			message.node.push_back(current_);
+			msg.node.push_back(current_);
 			//message.data_type.push_back();
 			Send(msg);
 		}
@@ -79,7 +79,28 @@ namespace ps {
 
 	void Endpoint::Serialize(message& msg, char** meta_buf, int* meta_size){
 		/*利用protobuf实现消息的序列化*/
-		meta meta；
+		Meta meta;
+		meta.set_cmd(msg.cmd);
+		meta.set_sender(msg.sender);
+		meta.set_receiver(msg.receiver);
+		meta.set_timestamp(msg.timestamp);
+		meta.set_request(msg.request);
+		meta.set_push(msg.push);
+
+		for (auto d : msg.data_type) meta.add_data_type(d);
+  		for (auto n : msg.node)
+		{
+			auto n_ = meta.add_node(); 
+			n_->set_role(n.role);
+			n_->set_id(n.id);
+			n_->set_hostname(n.hostname);
+			n_->set_port(n.port);
+			n_->set_is_recovery(n.is_recovery);
+		}
+
+		/*转为字符串*/
+		*meta_size=meta.ByteSize();
+		*meta_buf=new char[*meta_size+1];
 	}
 
 	void Endpoint::DeSerialize(){
