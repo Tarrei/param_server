@@ -1,0 +1,53 @@
+syntax = "proto2";
+package ps;
+ 
+message meta {
+
+  enum command {
+    EMPTY = 0;
+    ADD_NODE = 1;
+    TERMINATE = 2;
+    ACK = 3;
+    HEARTBEAT = 4;
+  }
+
+  required command cmd = 1;
+  required int32 sender = 2;
+  required int32 receiver = 3;
+  required int32 timestamp = 4;
+  required bool request = 5;
+  required bool push = 6;
+
+  message node_ {
+    enum r{
+    SCHEDULER = 0;
+    SERVER = 1;
+    WORKER = 2;
+    }
+    required r role = 1;
+    required int32 id = 2;
+    required string hostname = 3;
+    required int32 port = 4;
+    optional bool is_recovery = 5;
+  }
+  
+  repeated node_ node = 7;
+
+  enum type_ {
+    CHAR = 0;
+    INT8 =1;
+    INT16 = 2;
+    INT32 = 3;
+    INT64 = 4;
+    UINT8 = 5;
+    UINT16 = 6;
+    UINT32 = 7;
+    UINT64 = 8;
+    FLOAT = 9;
+    DOUBLE = 10;
+    OTHER = 11;
+  };
+
+  repeated type_ data_type = 8;
+
+}
