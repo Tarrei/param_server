@@ -72,7 +72,7 @@ namespace ps {
 		zmq_bind(receiver_, address.c_str());
 		/*连接到调度节点*/
 		Connect(scheduler_);
-		// start receiver
+		/*启动接收线程*/
 		receiver_thread_ = std::unique_ptr <std::thread> (new std::thread(&Endpoint::Receiving, this));
 		if (!is_scheduler_)
 		{
@@ -116,10 +116,33 @@ namespace ps {
 		/*转为字符串*/
 		*meta_size=meta.ByteSize();
 		*meta_buf=new char[*meta_size+1];
+		meta.SerializeToArray(*meta_buf, *meta_size);
 	}
 
-	void Endpoint::DeSerialize(){
+	void Endpoint::DeSerialize(const char* meta_buf, int meta_size, message* msg){
 		/*利用protobuf实现消息的反序列化*/
+		Meta meta;
+		meta.ParseFromArray(meta_buf, meta_size);
+		msg->cmd=static_cast<message::Command>(meta.cmd());
+		msg->sender=meta.sender();
+		msg->receiver=meta.receiver();
+		msg->timestamp=meta.timestamp();
+		msg->request=meta.request();
+		msg->push=meta.push();
+		msg->data_type.resize(meta.data_type_size());
+		for (int i=0;i<meta.data_type_size();i++) {
+		    msg->data_type[i] = static_cast<DataType>(meta.data_type(i));
+		}
+		for (int i=0;i<meta.node_size();i++){
+			const auto& p = meta.node(i);
+			Node n;
+			n.role=static_cast<Node::Role>(p.role());
+			n.id=p.id();
+			n.hostname=p.hostname();
+			n.port=p.port();
+			n.is_recovery=p.is_recovery();
+			msg->node.push_back(n);
+		}
 	}
 
 	void Endpoint::Send(message& msg){
@@ -128,6 +151,7 @@ namespace ps {
 		int meta_size;
 		char* meta_buf;
 		Serialize(msg,&meta_buf,&meta_size);
+		//cout<<meta_size<<" "<<std::string(meta_buf)<<endl;
 		int n=msg.data.size();
 		/*有数据需要发送，就发送多个消息帧*/
 		int tag = ZMQ_SNDMORE;
@@ -151,6 +175,36 @@ namespace ps {
 					break;
 			}
 			zmq_msg_close(&data_msg);
+		}
+	}
+
+	void Endpoint::Receive(message& msg){
+		for (int i = 0; ; ++i) {
+			zmq_msg_t* m = new zmq_msg_t;
+			zmq_msg_init (m); 
+			while(true)
+				if(zmq_msg_recv(m,receiver_, 0)!=-1) break;
+			char* buf = (char*)zmq_msg_data(m);
+			size_t size = zmq_msg_size(m);
+
+
+			if (i == 0) {
+		        // identify
+		        //msg->sender = GetNodeID(buf, size);
+		        //msg->recver = current_.id;
+		        zmq_msg_close(m);
+		        delete m;
+		      } else if (i == 1) {
+		        // task
+		        DeSerialize(buf, size, &(msg));
+		        zmq_msg_close(m);
+		        bool more = zmq_msg_more(m);
+		        delete m;
+		        if (!more) break;
+		      } else {
+		        // zero-copy
+		        
+		      }
 		}
 	}
 
@@ -180,18 +234,10 @@ namespace ps {
 		int count=0;
 		while(true)
 		{
-			zmq_msg_t msg;
-			zmq_msg_init (&msg); 
-			zmq_msg_recv(&msg,receiver_, 0);
-			// char buffer[10];
-			// zmq_recv (receiver_, buffer, 10, 0);
+			cout<<++count<<": "<<endl;
+			message msg;
+			Receive(msg);
 			
-			// std::string test=std::string(buffer);
-			// if(test=="hello"){
-			// 		cout<<"hello"<<endl;
-			// }else{
-			//  	//
-			// }
 		}
 	}
 
