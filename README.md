@@ -6,7 +6,7 @@
 -Serialize and Deserialize the message
 ## 3. Modify message.proto and compile
 protoc --proto_path=./ --cpp_out=./ message.proto
-## 4. Ensure your GCC compiler support c++11 or more
+## 4. Ensure your GCC compiler support c++11 or higher
 ## 5. Modify main.cc according to your needs
 ## 6. Make
 usage: ./env.sh ROLE NODE_URI NODE_PORT PS_ROOT_URI PS_ROOT_PORT
