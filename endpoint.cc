@@ -18,7 +18,22 @@ using namespace std;
 
 namespace ps {
 
-	void Endpoint::Start() {
+	/*需要的是char*，c_str()返回的是const char* 类型*/
+	inline char * getCharPtr(string &str, int len){
+		char *data;
+		data = (char *)malloc((len+1)*sizeof(char));
+		str.copy(data,len,0);
+		return data;
+	}
+
+	/*传输完成,释放数据空间*/
+	inline void free_msg (void *data, void *hint){
+	    if (hint == NULL) {
+	    	delete [] static_cast<char*>(data);
+	    }
+	}
+	
+	void Endpoint::Start(){
 
 		scheduler_.hostname = std::string(Environment::Get()->find("PS_ROOT_URI"));
 		scheduler_.port = atoi(Environment::Get()->find("PS_ROOT_PORT"));
@@ -61,8 +76,8 @@ namespace ps {
 		receiver_thread_ = std::unique_ptr <std::thread> (new std::thread(&Endpoint::Receiving, this));
 		if (!is_scheduler_)
 		{
-			zmq_send (senders_[SchedulerID], "hello", 5, 0);
-			cout<<"hello"<<endl;
+			//zmq_send (senders_[SchedulerID], "hello", 5, 0);
+			//cout<<"hello"<<endl;
 			message msg;
 			msg.sender=current_.id;
 			msg.receiver=scheduler_.id;
@@ -113,6 +128,30 @@ namespace ps {
 		int meta_size;
 		char* meta_buf;
 		Serialize(msg,&meta_buf,&meta_size);
+		int n=msg.data.size();
+		/*有数据需要发送，就发送多个消息帧*/
+		int tag = ZMQ_SNDMORE;
+		if (n==0) tag=0;
+		zmq_msg_t meta_msg;
+		zmq_msg_init_data(&meta_msg, meta_buf, meta_size, free_msg, NULL);
+		while(true){
+			if (zmq_msg_send(&meta_msg, socket, tag) == meta_size) 
+				break;
+		}
+		zmq_msg_close(&meta_msg);
+
+		for(int i=0;i<n;i++){
+			zmq_msg_t data_msg;
+			int data_size = msg.data[i].length();
+			char* data = getCharPtr(msg.data[i],data_size);
+			zmq_msg_init_data(&data_msg, data, data_size, free_msg, NULL);
+			if (i == n - 1) tag = 0;
+			while(true){
+				if (zmq_msg_send(&data_msg, socket, tag) == data_size) 
+					break;
+			}
+			zmq_msg_close(&data_msg);
+		}
 	}
 
 	void Endpoint::Connect(const Node& node) {
@@ -141,14 +180,18 @@ namespace ps {
 		int count=0;
 		while(true)
 		{
-			char buffer[10];
-			zmq_recv (receiver_, buffer, 10, 0);
-			std::string test=std::string(buffer);
-			if(test=="hello"){
-				//
-			}else{
-				//
-			}
+			zmq_msg_t msg;
+			zmq_msg_init (&msg); 
+			zmq_msg_recv(&msg,receiver_, 0);
+			// char buffer[10];
+			// zmq_recv (receiver_, buffer, 10, 0);
+			
+			// std::string test=std::string(buffer);
+			// if(test=="hello"){
+			// 		cout<<"hello"<<endl;
+			// }else{
+			//  	//
+			// }
 		}
 	}
 
