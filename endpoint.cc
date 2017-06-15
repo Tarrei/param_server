@@ -260,7 +260,83 @@ namespace ps {
 			cout<<++count<<": "<<endl;
 			message msg;
 			Receive(msg);
+			/*Scheduler message process*/
+			if(is_scheduler_){
+				switch(msg.cmd){
+					case message::EMPTY:{
+						
+					}
+					case message::ADD_NODE:{
+						if(msg.sender==EmptyID&&msg.request){
+							Node node=msg.node[0];
+							int num=0;
+							if(node.role==Node::WORKER){
+								num=Manager::Get()->NumWorkers();
+								Manager::Get()->AddWorkers();
+							}else if(node.role==Node::SERVER){
+								num=Manager::Get()->NumServers();
+								Manager::Get()->AddServers();
+							}
+							int id=num*2+8;
+							msg.sender=id;
+							node.id=id;
+							msg.node[0]=node;
+							int current_ts =timestamp;
+							timestamp=current_ts>msg.timestamp?current_ts:msg.timestamp;
+							Connect(node);
 
+							message reply;
+							reply.sender=current_.id;
+							reply.receiver=id;
+							reply.timestamp=++timestamp;
+							reply.request=false;
+							reply.cmd=message::ADD_NODE;
+							reply.push=false;
+							reply.node.push_back(node);
+							Send(reply);
+						}else{//忽视非法的ADD_NODE的消息
+							break;
+						}
+					}
+					case message::TERMINATE:{
+						
+					}
+					case message::ACK:{
+						
+					}
+					case message::HEARTBEAT:{
+						
+					}
+					default:{
+
+					}
+				}
+			}
+			/*Worker or Server message process*/
+			else{
+				switch(msg.cmd){
+					case message::EMPTY:{
+						
+					}
+					case message::ADD_NODE:{
+						if(msg.sender==SchedulerID&&!msg.request){
+							current_=msg.node[0];
+						}else {break;}
+					}
+					case message::TERMINATE:{
+						
+					}
+					case message::ACK:{
+						
+					}
+					case message::HEARTBEAT:{
+						
+					}
+					default:{
+
+					}
+				}
+			}
 		}
 	}
 

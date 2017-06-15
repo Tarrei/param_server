@@ -2,6 +2,8 @@ Node id:
 	1:Scheduler
 	2:Server Group
 	4:Worker Group
+	odd:servers
+	even:workers
 
 Node role:
 	0:Scheduler
