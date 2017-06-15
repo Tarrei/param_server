@@ -31,7 +31,7 @@ namespace ps{
 		void Send(message& msg);
 		void Receive(message& msg);
 		void Serialize(message& msg, char** meta_buf, int* meta_size);
-		void DeSerialize(const char* meta_buf, int meta_size, message* msg);
+		void DeSerialize(message& msg, const char* meta_buf, int meta_size);
 		/*连接某个节点*/
 		void Connect(const Node& node);
 		/*收发线程对应的function*/

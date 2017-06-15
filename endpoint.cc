@@ -32,6 +32,23 @@ namespace ps {
 	    	delete [] static_cast<char*>(data);
 	    }
 	}
+
+	/*确认消息发送者ID*/
+	inline int MesSenderID (const char* buf,size_t size){
+		if (size > 2 && buf[0] == 'p' && buf[1] == 's') {
+	      	int id = 0;
+	      	size_t i = 2;
+	      	for (; i < size; ++i) {
+	       		if (buf[i] >= '0' && buf[i] <= '9') {
+	          	id = id * 10 + buf[i] - '0';
+	        	} else {
+	          	break;
+	        	}
+	      	}
+	      	if (i == size) return id;
+	    }
+    	return Node::EmptyID;
+	}
 	
 	void Endpoint::Start(){
 
@@ -119,19 +136,19 @@ namespace ps {
 		meta.SerializeToArray(*meta_buf, *meta_size);
 	}
 
-	void Endpoint::DeSerialize(const char* meta_buf, int meta_size, message* msg){
+	void Endpoint::DeSerialize(message& msg, const char* meta_buf, int meta_size){
 		/*利用protobuf实现消息的反序列化*/
 		Meta meta;
 		meta.ParseFromArray(meta_buf, meta_size);
-		msg->cmd=static_cast<message::Command>(meta.cmd());
-		msg->sender=meta.sender();
-		msg->receiver=meta.receiver();
-		msg->timestamp=meta.timestamp();
-		msg->request=meta.request();
-		msg->push=meta.push();
-		msg->data_type.resize(meta.data_type_size());
+		msg.cmd=static_cast<message::Command>(meta.cmd());
+		msg.sender=meta.sender();
+		msg.receiver=meta.receiver();
+		msg.timestamp=meta.timestamp();
+		msg.request=meta.request();
+		msg.push=meta.push();
+		msg.data_type.resize(meta.data_type_size());
 		for (int i=0;i<meta.data_type_size();i++) {
-		    msg->data_type[i] = static_cast<DataType>(meta.data_type(i));
+		    msg.data_type[i] = static_cast<DataType>(meta.data_type(i));
 		}
 		for (int i=0;i<meta.node_size();i++){
 			const auto& p = meta.node(i);
@@ -141,7 +158,7 @@ namespace ps {
 			n.hostname=p.hostname();
 			n.port=p.port();
 			n.is_recovery=p.is_recovery();
-			msg->node.push_back(n);
+			msg.node.push_back(n);
 		}
 	}
 
@@ -190,20 +207,26 @@ namespace ps {
 
 			if (i == 0) {
 		        // identify
-		        //msg->sender = GetNodeID(buf, size);
-		        //msg->recver = current_.id;
+		        msg.sender = MesSenderID(buf, size);
+		        // cout<<msg.sender<<endl;
+		        msg.receiver = current_.id;
 		        zmq_msg_close(m);
 		        delete m;
 		      } else if (i == 1) {
 		        // task
-		        DeSerialize(buf, size, &(msg));
+		        DeSerialize(msg, buf, size);
+		        // cout<<msg.node[0].port<<endl;
 		        zmq_msg_close(m);
 		        bool more = zmq_msg_more(m);
 		        delete m;
 		        if (!more) break;
 		      } else {
 		        // zero-copy
-		        
+		        char* data;
+		        memcpy(data,(char*)zmq_msg_data(m),zmq_msg_size(m));
+		        // cout<<std::string(data)<<endl;
+		        msg.data.push_back(std::string(data));
+		        if (!zmq_msg_more(m)) { break; }
 		      }
 		}
 	}
@@ -237,7 +260,7 @@ namespace ps {
 			cout<<++count<<": "<<endl;
 			message msg;
 			Receive(msg);
-			
+
 		}
 	}
 
