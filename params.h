@@ -8,6 +8,8 @@
 #define PARAMS_H_
 
 #include "manager.h"
+#include "server.h"
+#include "worker.h"
 
 namespace ps {
 

@@ -19,7 +19,7 @@ using namespace std;
 namespace ps {
 
 	/*需要的是char*，c_str()返回的是const char* 类型*/
-	inline char * getCharPtr(string &str, int len){
+	inline char * getCharPtr(std::string &str, int len){
 		char *data;
 		data = (char *)malloc((len+1)*sizeof(char));
 		str.copy(data,len,0);
@@ -204,7 +204,6 @@ namespace ps {
 			char* buf = (char*)zmq_msg_data(m);
 			size_t size = zmq_msg_size(m);
 
-
 			if (i == 0) {
 		        // identify
 		        msg.sender = MesSenderID(buf, size);
@@ -232,6 +231,7 @@ namespace ps {
 	}
 
 	void Endpoint::Connect(const Node& node) {
+		if(node.id==current_.id) return;
 		int id = node.id;
 		auto it = senders_.find(id);
 		/*如果已经有了socket连接，断开*/
@@ -257,7 +257,9 @@ namespace ps {
 		int count=0;
 		while(true)
 		{
-			cout<<++count<<": "<<endl;
+			// cout<<++count<<": "<<endl;
+			// cout<<"workers"<<": "<<Manager::Get()->NumWorkers()<<endl;
+			// cout<<"servers"<<": "<<Manager::Get()->NumServers()<<endl;
 			message msg;
 			Receive(msg);
 			/*Scheduler message process*/
@@ -269,34 +271,53 @@ namespace ps {
 					case message::ADD_NODE:{
 						if(msg.sender==EmptyID&&msg.request){
 							Node node=msg.node[0];
-							int num=0;
+							int id=0;
 							if(node.role==Node::WORKER){
-								num=Manager::Get()->NumWorkers();
+								int num=Manager::Get()->NumWorkers();
 								Manager::Get()->AddWorkers();
+								id=Manager::Get()->GetWorkerID(num);
+								Manager::Get()->SetWorkerGroup(id);
 							}else if(node.role==Node::SERVER){
-								num=Manager::Get()->NumServers();
+								int num=Manager::Get()->NumServers();
 								Manager::Get()->AddServers();
+								id=Manager::Get()->GetServerID(num);
+								Manager::Get()->SetServerGroup(id);
 							}
-							int id=num*2+8;
-							msg.sender=id;
+
 							node.id=id;
-							msg.node[0]=node;
+							nodes.push_back(node);
+
 							int current_ts =timestamp;
 							timestamp=current_ts>msg.timestamp?current_ts:msg.timestamp;
 							Connect(node);
 
 							message reply;
 							reply.sender=current_.id;
-							reply.receiver=id;
-							reply.timestamp=++timestamp;
 							reply.request=false;
 							reply.cmd=message::ADD_NODE;
 							reply.push=false;
 							reply.node.push_back(node);
+
+							for (int id_ : Manager::Get()->GetNodeIDs(ServerGroupID+WorkerGroupID))
+							{
+								if(id_==node.id) continue;
+								reply.receiver=id_;
+								reply.timestamp=timestamp++;
+								Send(reply);
+							}
+
+							reply.receiver=node.id;
+							reply.timestamp=timestamp++;
+
+							for(unsigned int i=0;i<nodes.size();i++)
+							{
+								if(node.id==nodes[i].id) continue;
+								else
+									reply.node.push_back(nodes[i]);
+							}
 							Send(reply);
-						}else{//忽视非法的ADD_NODE的消息
-							break;
-						}
+
+						}else{break;}//忽视非法的ADD_NODE的消息
 					}
 					case message::TERMINATE:{
 						
@@ -320,7 +341,20 @@ namespace ps {
 					}
 					case message::ADD_NODE:{
 						if(msg.sender==SchedulerID&&!msg.request){
-							current_=msg.node[0];
+							if(current_.id==EmptyID)
+								current_.id=msg.node[0].id;
+							for(unsigned int i=0;i<msg.node.size();i++)
+							{
+								Node node=msg.node[i];
+								if(node.role==Node::WORKER)
+									Manager::Get()->AddWorkers();
+								else
+									Manager::Get()->AddServers();
+
+								Connect(msg.node[i]);
+								//cout<<msg.node[i].id<<" "<<msg.node[i].port<<" "<<msg.node[i].role<<endl;
+							}
+
 						}else {break;}
 					}
 					case message::TERMINATE:{

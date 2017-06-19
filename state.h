@@ -14,7 +14,6 @@ namespace ps{
 	const static int SchedulerID = 1;
 	const static int ServerGroupID = 2;
 	const static int WorkerGroupID = 4;
-
 }
 
 

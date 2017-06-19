@@ -27,6 +27,9 @@ namespace ps{
 		~Endpoint(){}
 		void Start();
 		void Stop();
+		Node* Current(){
+			return &current_;
+		}
 	private:
 		void Send(message& msg);
 		void Receive(message& msg);
@@ -50,6 +53,8 @@ namespace ps{
 		std::mutex mu_;
 		/*Lamport timestamp*/
 		std::atomic<int> timestamp={0};
+		/*存储node信息,只有Scheduler会存储*/
+		std::vector<Node> nodes;
 	};
 }
 

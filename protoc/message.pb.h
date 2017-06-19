@@ -28,7 +28,6 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
-#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 namespace ps {
@@ -56,77 +55,6 @@ void AddDescriptors();
 void InitDefaults();
 }  // namespace protobuf_message_2eproto
 
-enum Meta_Node__Role_ {
-  Meta_Node__Role__SCHEDULER = 0,
-  Meta_Node__Role__SERVER = 1,
-  Meta_Node__Role__WORKER = 2
-};
-bool Meta_Node__Role__IsValid(int value);
-const Meta_Node__Role_ Meta_Node__Role__Role__MIN = Meta_Node__Role__SCHEDULER;
-const Meta_Node__Role_ Meta_Node__Role__Role__MAX = Meta_Node__Role__WORKER;
-const int Meta_Node__Role__Role__ARRAYSIZE = Meta_Node__Role__Role__MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* Meta_Node__Role__descriptor();
-inline const ::std::string& Meta_Node__Role__Name(Meta_Node__Role_ value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    Meta_Node__Role__descriptor(), value);
-}
-inline bool Meta_Node__Role__Parse(
-    const ::std::string& name, Meta_Node__Role_* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<Meta_Node__Role_>(
-    Meta_Node__Role__descriptor(), name, value);
-}
-enum Meta_Command_ {
-  Meta_Command__EMPTY = 0,
-  Meta_Command__ADD_NODE = 1,
-  Meta_Command__TERMINATE = 2,
-  Meta_Command__ACK = 3,
-  Meta_Command__HEARTBEAT = 4
-};
-bool Meta_Command__IsValid(int value);
-const Meta_Command_ Meta_Command__Command__MIN = Meta_Command__EMPTY;
-const Meta_Command_ Meta_Command__Command__MAX = Meta_Command__HEARTBEAT;
-const int Meta_Command__Command__ARRAYSIZE = Meta_Command__Command__MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* Meta_Command__descriptor();
-inline const ::std::string& Meta_Command__Name(Meta_Command_ value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    Meta_Command__descriptor(), value);
-}
-inline bool Meta_Command__Parse(
-    const ::std::string& name, Meta_Command_* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<Meta_Command_>(
-    Meta_Command__descriptor(), name, value);
-}
-enum Meta_t_ {
-  Meta_t__CHAR = 0,
-  Meta_t__INT8 = 1,
-  Meta_t__INT16 = 2,
-  Meta_t__INT32 = 3,
-  Meta_t__INT64 = 4,
-  Meta_t__UINT8 = 5,
-  Meta_t__UINT16 = 6,
-  Meta_t__UINT32 = 7,
-  Meta_t__UINT64 = 8,
-  Meta_t__FLOAT = 9,
-  Meta_t__DOUBLE = 10,
-  Meta_t__OTHER = 11
-};
-bool Meta_t__IsValid(int value);
-const Meta_t_ Meta_t__t__MIN = Meta_t__CHAR;
-const Meta_t_ Meta_t__t__MAX = Meta_t__OTHER;
-const int Meta_t__t__ARRAYSIZE = Meta_t__t__MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* Meta_t__descriptor();
-inline const ::std::string& Meta_t__Name(Meta_t_ value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    Meta_t__descriptor(), value);
-}
-inline bool Meta_t__Parse(
-    const ::std::string& name, Meta_t_* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<Meta_t_>(
-    Meta_t__descriptor(), name, value);
-}
 // ===================================================================
 
 class Meta_Node_ : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:ps.Meta.Node_) */ {
@@ -198,34 +126,6 @@ class Meta_Node_ : public ::google::protobuf::Message /* @@protoc_insertion_poin
   ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
 
   // nested types ----------------------------------------------------
-
-  typedef Meta_Node__Role_ Role_;
-  static const Role_ SCHEDULER =
-    Meta_Node__Role__SCHEDULER;
-  static const Role_ SERVER =
-    Meta_Node__Role__SERVER;
-  static const Role_ WORKER =
-    Meta_Node__Role__WORKER;
-  static inline bool Role__IsValid(int value) {
-    return Meta_Node__Role__IsValid(value);
-  }
-  static const Role_ Role__MIN =
-    Meta_Node__Role__Role__MIN;
-  static const Role_ Role__MAX =
-    Meta_Node__Role__Role__MAX;
-  static const int Role__ARRAYSIZE =
-    Meta_Node__Role__Role__ARRAYSIZE;
-  static inline const ::google::protobuf::EnumDescriptor*
-  Role__descriptor() {
-    return Meta_Node__Role__descriptor();
-  }
-  static inline const ::std::string& Role__Name(Role_ value) {
-    return Meta_Node__Role__Name(value);
-  }
-  static inline bool Role__Parse(const ::std::string& name,
-      Role_* value) {
-    return Meta_Node__Role__Parse(name, value);
-  }
 
   // accessors -------------------------------------------------------
 
@@ -372,84 +272,6 @@ class Meta : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 
   typedef Meta_Node_ Node_;
 
-  typedef Meta_Command_ Command_;
-  static const Command_ EMPTY =
-    Meta_Command__EMPTY;
-  static const Command_ ADD_NODE =
-    Meta_Command__ADD_NODE;
-  static const Command_ TERMINATE =
-    Meta_Command__TERMINATE;
-  static const Command_ ACK =
-    Meta_Command__ACK;
-  static const Command_ HEARTBEAT =
-    Meta_Command__HEARTBEAT;
-  static inline bool Command__IsValid(int value) {
-    return Meta_Command__IsValid(value);
-  }
-  static const Command_ Command__MIN =
-    Meta_Command__Command__MIN;
-  static const Command_ Command__MAX =
-    Meta_Command__Command__MAX;
-  static const int Command__ARRAYSIZE =
-    Meta_Command__Command__ARRAYSIZE;
-  static inline const ::google::protobuf::EnumDescriptor*
-  Command__descriptor() {
-    return Meta_Command__descriptor();
-  }
-  static inline const ::std::string& Command__Name(Command_ value) {
-    return Meta_Command__Name(value);
-  }
-  static inline bool Command__Parse(const ::std::string& name,
-      Command_* value) {
-    return Meta_Command__Parse(name, value);
-  }
-
-  typedef Meta_t_ t_;
-  static const t_ CHAR =
-    Meta_t__CHAR;
-  static const t_ INT8 =
-    Meta_t__INT8;
-  static const t_ INT16 =
-    Meta_t__INT16;
-  static const t_ INT32 =
-    Meta_t__INT32;
-  static const t_ INT64 =
-    Meta_t__INT64;
-  static const t_ UINT8 =
-    Meta_t__UINT8;
-  static const t_ UINT16 =
-    Meta_t__UINT16;
-  static const t_ UINT32 =
-    Meta_t__UINT32;
-  static const t_ UINT64 =
-    Meta_t__UINT64;
-  static const t_ FLOAT =
-    Meta_t__FLOAT;
-  static const t_ DOUBLE =
-    Meta_t__DOUBLE;
-  static const t_ OTHER =
-    Meta_t__OTHER;
-  static inline bool t__IsValid(int value) {
-    return Meta_t__IsValid(value);
-  }
-  static const t_ t__MIN =
-    Meta_t__t__MIN;
-  static const t_ t__MAX =
-    Meta_t__t__MAX;
-  static const int t__ARRAYSIZE =
-    Meta_t__t__ARRAYSIZE;
-  static inline const ::google::protobuf::EnumDescriptor*
-  t__descriptor() {
-    return Meta_t__descriptor();
-  }
-  static inline const ::std::string& t__Name(t_ value) {
-    return Meta_t__Name(value);
-  }
-  static inline bool t__Parse(const ::std::string& name,
-      t_* value) {
-    return Meta_t__Parse(name, value);
-  }
-
   // accessors -------------------------------------------------------
 
   // repeated .ps.Meta.Node_ node = 7;
@@ -518,6 +340,13 @@ class Meta : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
   bool push() const;
   void set_push(bool value);
 
+  // optional int32 customer_id = 9;
+  bool has_customer_id() const;
+  void clear_customer_id();
+  static const int kCustomerIdFieldNumber = 9;
+  ::google::protobuf::int32 customer_id() const;
+  void set_customer_id(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:ps.Meta)
  private:
   void set_has_cmd();
@@ -532,6 +361,8 @@ class Meta : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
   void clear_has_request();
   void set_has_push();
   void clear_has_push();
+  void set_has_customer_id();
+  void clear_has_customer_id();
 
   // helper for ByteSizeLong()
   size_t RequiredFieldsByteSizeFallback() const;
@@ -547,6 +378,7 @@ class Meta : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
   ::google::protobuf::int32 timestamp_;
   bool request_;
   bool push_;
+  ::google::protobuf::int32 customer_id_;
   friend struct protobuf_message_2eproto::TableStruct;
 };
 // ===================================================================
@@ -924,6 +756,30 @@ Meta::mutable_data_type() {
   return &data_type_;
 }
 
+// optional int32 customer_id = 9;
+inline bool Meta::has_customer_id() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void Meta::set_has_customer_id() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void Meta::clear_has_customer_id() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline void Meta::clear_customer_id() {
+  customer_id_ = 0;
+  clear_has_customer_id();
+}
+inline ::google::protobuf::int32 Meta::customer_id() const {
+  // @@protoc_insertion_point(field_get:ps.Meta.customer_id)
+  return customer_id_;
+}
+inline void Meta::set_customer_id(::google::protobuf::int32 value) {
+  set_has_customer_id();
+  customer_id_ = value;
+  // @@protoc_insertion_point(field_set:ps.Meta.customer_id)
+}
+
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
 // -------------------------------------------------------------------
 
@@ -932,30 +788,6 @@ Meta::mutable_data_type() {
 
 
 }  // namespace ps
-
-#ifndef SWIG
-namespace google {
-namespace protobuf {
-
-template <> struct is_proto_enum< ::ps::Meta_Node__Role_> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::ps::Meta_Node__Role_>() {
-  return ::ps::Meta_Node__Role__descriptor();
-}
-template <> struct is_proto_enum< ::ps::Meta_Command_> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::ps::Meta_Command_>() {
-  return ::ps::Meta_Command__descriptor();
-}
-template <> struct is_proto_enum< ::ps::Meta_t_> : ::google::protobuf::internal::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::ps::Meta_t_>() {
-  return ::ps::Meta_t__descriptor();
-}
-
-}  // namespace protobuf
-}  // namespace google
-#endif  // SWIG
 
 // @@protoc_insertion_point(global_scope)
 

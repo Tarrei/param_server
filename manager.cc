@@ -37,4 +37,30 @@ namespace ps{
 	void Manager::Stop(){
 		ep_->Stop();
 	}
+
+	Customer* Manager::GetCustomer(int id,int timeout) const{
+		Customer* obj = nullptr;
+		for (int i = 0; i < timeout*1000+1; ++i) {
+		    std::lock_guard<std::mutex> lk(mu_);
+		    const auto it = customers_.find(id);
+		    if (it != customers_.end()) {
+		    	obj = it->second;
+		        break;
+			}
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+		return obj;
+	}
+
+	void Manager::AddCustomer(Customer* customer){
+		std::lock_guard<std::mutex> lk(mu_);
+		int id=customer->Getid();
+		customers_[id]=customer;
+	}
+
+	void Manager::RemoveCustomer(Customer* customer){
+		std::lock_guard<std::mutex> lk(mu_);
+		int id=customer->Getid();
+		customers_.erase(id);
+	}
 }

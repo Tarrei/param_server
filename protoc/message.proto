@@ -3,14 +3,6 @@ package ps;
  
 message Meta {
 
-  enum Command_ {
-    EMPTY = 0;
-    ADD_NODE = 1;
-    TERMINATE = 2;
-    ACK = 3;
-    HEARTBEAT = 4;
-  }
-
   //do not use the enum
   required int32 cmd = 1;
   required int32 sender = 2;
@@ -20,11 +12,7 @@ message Meta {
   required bool push = 6;
 
   message Node_ {
-    enum Role_{
-    SCHEDULER = 0;
-    SERVER = 1;
-    WORKER = 2;
-    }
+
     //do not use the enum
     required int32 role = 1;
     required int32 id = 2;
@@ -35,22 +23,9 @@ message Meta {
   
   repeated Node_ node = 7;
 
-  enum t_ {
-    CHAR = 0;
-    INT8 =1;
-    INT16 = 2;
-    INT32 = 3;
-    INT64 = 4;
-    UINT8 = 5;
-    UINT16 = 6;
-    UINT32 = 7;
-    UINT64 = 8;
-    FLOAT = 9;
-    DOUBLE = 10;
-    OTHER = 11;
-  }
-
   //do not use the enum
   repeated int32 data_type = 8;
+
+  optional int32 customer_id = 9;
 
 }

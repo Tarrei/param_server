@@ -29,7 +29,6 @@ namespace protobuf_message_2eproto {
 namespace {
 
 ::google::protobuf::Metadata file_level_metadata[2];
-const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[3];
 
 }  // namespace
 
@@ -77,6 +76,7 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Meta, push_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Meta, node_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Meta, data_type_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Meta, customer_id_),
   0,
   1,
   2,
@@ -85,11 +85,12 @@ const ::google::protobuf::uint32 TableStruct::offsets[] = {
   5,
   ~0u,
   ~0u,
+  6,
 };
 
 static const ::google::protobuf::internal::MigrationSchema schemas[] = {
   { 0, 10, sizeof(Meta_Node_)},
-  { 15, 28, sizeof(Meta)},
+  { 15, 29, sizeof(Meta)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -104,7 +105,7 @@ void protobuf_AssignDescriptors() {
   ::google::protobuf::MessageFactory* factory = NULL;
   AssignDescriptors(
       "message.proto", schemas, file_default_instances, TableStruct::offsets, factory,
-      file_level_metadata, file_level_enum_descriptors, NULL);
+      file_level_metadata, NULL, NULL);
 }
 
 void protobuf_AssignDescriptorsOnce() {
@@ -142,23 +143,17 @@ void InitDefaults() {
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] = {
-      "\n\rmessage.proto\022\002ps\"\372\003\n\004Meta\022\013\n\003cmd\030\001 \002("
+      "\n\rmessage.proto\022\002ps\"\205\002\n\004Meta\022\013\n\003cmd\030\001 \002("
       "\005\022\016\n\006sender\030\002 \002(\005\022\020\n\010receiver\030\003 \002(\005\022\021\n\tt"
       "imestamp\030\004 \002(\005\022\017\n\007request\030\005 \002(\010\022\014\n\004push\030"
       "\006 \002(\010\022\034\n\004node\030\007 \003(\0132\016.ps.Meta.Node_\022\021\n\td"
-      "ata_type\030\010 \003(\005\032\206\001\n\005Node_\022\014\n\004role\030\001 \002(\005\022\n"
-      "\n\002id\030\002 \002(\005\022\020\n\010hostname\030\003 \002(\t\022\014\n\004port\030\004 \002"
-      "(\005\022\023\n\013is_recovery\030\005 \001(\010\".\n\005Role_\022\r\n\tSCHE"
-      "DULER\020\000\022\n\n\006SERVER\020\001\022\n\n\006WORKER\020\002\"J\n\010Comma"
-      "nd_\022\t\n\005EMPTY\020\000\022\014\n\010ADD_NODE\020\001\022\r\n\tTERMINAT"
-      "E\020\002\022\007\n\003ACK\020\003\022\r\n\tHEARTBEAT\020\004\"\212\001\n\002t_\022\010\n\004CH"
-      "AR\020\000\022\010\n\004INT8\020\001\022\t\n\005INT16\020\002\022\t\n\005INT32\020\003\022\t\n\005"
-      "INT64\020\004\022\t\n\005UINT8\020\005\022\n\n\006UINT16\020\006\022\n\n\006UINT32"
-      "\020\007\022\n\n\006UINT64\020\010\022\t\n\005FLOAT\020\t\022\n\n\006DOUBLE\020\n\022\t\n"
-      "\005OTHER\020\013"
+      "ata_type\030\010 \003(\005\022\023\n\013customer_id\030\t \001(\005\032V\n\005N"
+      "ode_\022\014\n\004role\030\001 \002(\005\022\n\n\002id\030\002 \002(\005\022\020\n\010hostna"
+      "me\030\003 \002(\t\022\014\n\004port\030\004 \002(\005\022\023\n\013is_recovery\030\005 "
+      "\001(\010"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 528);
+      descriptor, 283);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "message.proto", &protobuf_RegisterTypes);
   ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
@@ -177,97 +172,6 @@ struct StaticDescriptorInitializer {
 
 }  // namespace protobuf_message_2eproto
 
-const ::google::protobuf::EnumDescriptor* Meta_Node__Role__descriptor() {
-  protobuf_message_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_message_2eproto::file_level_enum_descriptors[0];
-}
-bool Meta_Node__Role__IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-      return true;
-    default:
-      return false;
-  }
-}
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const Meta_Node__Role_ Meta_Node_::SCHEDULER;
-const Meta_Node__Role_ Meta_Node_::SERVER;
-const Meta_Node__Role_ Meta_Node_::WORKER;
-const Meta_Node__Role_ Meta_Node_::Role__MIN;
-const Meta_Node__Role_ Meta_Node_::Role__MAX;
-const int Meta_Node_::Role__ARRAYSIZE;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-const ::google::protobuf::EnumDescriptor* Meta_Command__descriptor() {
-  protobuf_message_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_message_2eproto::file_level_enum_descriptors[1];
-}
-bool Meta_Command__IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-      return true;
-    default:
-      return false;
-  }
-}
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const Meta_Command_ Meta::EMPTY;
-const Meta_Command_ Meta::ADD_NODE;
-const Meta_Command_ Meta::TERMINATE;
-const Meta_Command_ Meta::ACK;
-const Meta_Command_ Meta::HEARTBEAT;
-const Meta_Command_ Meta::Command__MIN;
-const Meta_Command_ Meta::Command__MAX;
-const int Meta::Command__ARRAYSIZE;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-const ::google::protobuf::EnumDescriptor* Meta_t__descriptor() {
-  protobuf_message_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_message_2eproto::file_level_enum_descriptors[2];
-}
-bool Meta_t__IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-    case 11:
-      return true;
-    default:
-      return false;
-  }
-}
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const Meta_t_ Meta::CHAR;
-const Meta_t_ Meta::INT8;
-const Meta_t_ Meta::INT16;
-const Meta_t_ Meta::INT32;
-const Meta_t_ Meta::INT64;
-const Meta_t_ Meta::UINT8;
-const Meta_t_ Meta::UINT16;
-const Meta_t_ Meta::UINT32;
-const Meta_t_ Meta::UINT64;
-const Meta_t_ Meta::FLOAT;
-const Meta_t_ Meta::DOUBLE;
-const Meta_t_ Meta::OTHER;
-const Meta_t_ Meta::t__MIN;
-const Meta_t_ Meta::t__MAX;
-const int Meta::t__ARRAYSIZE;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 // ===================================================================
 
@@ -887,6 +791,7 @@ const int Meta::kRequestFieldNumber;
 const int Meta::kPushFieldNumber;
 const int Meta::kNodeFieldNumber;
 const int Meta::kDataTypeFieldNumber;
+const int Meta::kCustomerIdFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Meta::Meta()
@@ -906,15 +811,15 @@ Meta::Meta(const Meta& from)
       data_type_(from.data_type_) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&cmd_, &from.cmd_,
-    reinterpret_cast<char*>(&push_) -
-    reinterpret_cast<char*>(&cmd_) + sizeof(push_));
+    reinterpret_cast<char*>(&customer_id_) -
+    reinterpret_cast<char*>(&cmd_) + sizeof(customer_id_));
   // @@protoc_insertion_point(copy_constructor:ps.Meta)
 }
 
 void Meta::SharedCtor() {
   _cached_size_ = 0;
-  ::memset(&cmd_, 0, reinterpret_cast<char*>(&push_) -
-    reinterpret_cast<char*>(&cmd_) + sizeof(push_));
+  ::memset(&cmd_, 0, reinterpret_cast<char*>(&customer_id_) -
+    reinterpret_cast<char*>(&cmd_) + sizeof(customer_id_));
 }
 
 Meta::~Meta() {
@@ -952,9 +857,9 @@ void Meta::Clear() {
 // @@protoc_insertion_point(message_clear_start:ps.Meta)
   node_.Clear();
   data_type_.Clear();
-  if (_has_bits_[0 / 32] & 63u) {
-    ::memset(&cmd_, 0, reinterpret_cast<char*>(&push_) -
-      reinterpret_cast<char*>(&cmd_) + sizeof(push_));
+  if (_has_bits_[0 / 32] & 127u) {
+    ::memset(&cmd_, 0, reinterpret_cast<char*>(&customer_id_) -
+      reinterpret_cast<char*>(&cmd_) + sizeof(customer_id_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear();
@@ -1084,6 +989,20 @@ bool Meta::MergePartialFromCodedStream(
         break;
       }
 
+      // optional int32 customer_id = 9;
+      case 9: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(72u)) {
+          set_has_customer_id();
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &customer_id_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0 ||
@@ -1155,6 +1074,11 @@ void Meta::SerializeWithCachedSizes(
       8, this->data_type(i), output);
   }
 
+  // optional int32 customer_id = 9;
+  if (cached_has_bits & 0x00000040u) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(9, this->customer_id(), output);
+  }
+
   if (_internal_metadata_.have_unknown_fields()) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         unknown_fields(), output);
@@ -1209,6 +1133,11 @@ void Meta::SerializeWithCachedSizes(
   // repeated int32 data_type = 8;
   target = ::google::protobuf::internal::WireFormatLite::
     WriteInt32ToArray(8, this->data_type_, target);
+
+  // optional int32 customer_id = 9;
+  if (cached_has_bits & 0x00000040u) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(9, this->customer_id(), target);
+  }
 
   if (_internal_metadata_.have_unknown_fields()) {
     target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
@@ -1321,6 +1250,13 @@ size_t Meta::ByteSizeLong() const {
     total_size += data_size;
   }
 
+  // optional int32 customer_id = 9;
+  if (has_customer_id()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->customer_id());
+  }
+
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
   _cached_size_ = cached_size;
@@ -1353,7 +1289,7 @@ void Meta::MergeFrom(const Meta& from) {
   node_.MergeFrom(from.node_);
   data_type_.MergeFrom(from.data_type_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 63u) {
+  if (cached_has_bits & 127u) {
     if (cached_has_bits & 0x00000001u) {
       cmd_ = from.cmd_;
     }
@@ -1371,6 +1307,9 @@ void Meta::MergeFrom(const Meta& from) {
     }
     if (cached_has_bits & 0x00000020u) {
       push_ = from.push_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      customer_id_ = from.customer_id_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -1409,6 +1348,7 @@ void Meta::InternalSwap(Meta* other) {
   std::swap(timestamp_, other->timestamp_);
   std::swap(request_, other->request_);
   std::swap(push_, other->push_);
+  std::swap(customer_id_, other->customer_id_);
   std::swap(_has_bits_[0], other->_has_bits_[0]);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -1624,6 +1564,30 @@ Meta::data_type() const {
 Meta::mutable_data_type() {
   // @@protoc_insertion_point(field_mutable_list:ps.Meta.data_type)
   return &data_type_;
+}
+
+// optional int32 customer_id = 9;
+bool Meta::has_customer_id() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+void Meta::set_has_customer_id() {
+  _has_bits_[0] |= 0x00000040u;
+}
+void Meta::clear_has_customer_id() {
+  _has_bits_[0] &= ~0x00000040u;
+}
+void Meta::clear_customer_id() {
+  customer_id_ = 0;
+  clear_has_customer_id();
+}
+::google::protobuf::int32 Meta::customer_id() const {
+  // @@protoc_insertion_point(field_get:ps.Meta.customer_id)
+  return customer_id_;
+}
+void Meta::set_customer_id(::google::protobuf::int32 value) {
+  set_has_customer_id();
+  customer_id_ = value;
+  // @@protoc_insertion_point(field_set:ps.Meta.customer_id)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

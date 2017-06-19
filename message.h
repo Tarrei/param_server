@@ -19,11 +19,11 @@ namespace ps{
 	  FLOAT, DOUBLE, OTHER
 	};
 	/** \brief data type name */
-	static const char* DataTypeName[] = {
-	  "CHAR", "INT8", "INT16", "INT32", "INT64",
-	  "UINT8", "UINT16", "UINT32", "UINT64",
-	  "FLOAT", "DOUBLE", "OTHER"
-	};
+	// static const char* DataTypeName[] = {
+	//   "CHAR", "INT8", "INT16", "INT32", "INT64",
+	//   "UINT8", "UINT16", "UINT32", "UINT64",
+	//   "FLOAT", "DOUBLE", "OTHER"
+	// };
 	/**
 	 * \brief compare if V and W are the same type
 	 */
@@ -74,10 +74,16 @@ namespace ps{
 		int timestamp;
 		bool request;
 		bool push;
+		int customer_id;
 		/*向各个节点传输的数据类型及数据*/
 		std::vector<Node> node;
 		std::vector<DataType> data_type;
 		std::vector<std::string> data;
+		template <typename V>
+  		void AddData(const std::vector<V>& val) {
+    		data_type.push_back(GetDataType<V>());
+    		data.push_back(std::string(val));
+  		}
 	};	
 }
 
