@@ -8,6 +8,7 @@
 #define MESSAGE_H_
 
 #include "node.h"
+#include "sarray.h"
 #include <string>
 #include <vector>
 
@@ -65,7 +66,8 @@ namespace ps{
 		/*消息类型*/
 		static const int empty = 0;
 		enum Command {EMPTY, ADD_NODE, TERMINATE, ACK, HEARTBEAT};
-		message():cmd(EMPTY),sender(empty),receiver(empty),timestamp(empty){}
+		message():cmd(EMPTY),sender(empty),receiver(empty),
+			timestamp(empty),request(false),push(false),customer_id(-1){}
 		Command cmd;
 
 		int sender;
@@ -78,11 +80,11 @@ namespace ps{
 		/*向各个节点传输的数据类型及数据*/
 		std::vector<Node> node;
 		std::vector<DataType> data_type;
-		std::vector<std::string> data;
+		std::vector<SArray<char>> data;
 		template <typename V>
   		void AddData(const std::vector<V>& val) {
     		data_type.push_back(GetDataType<V>());
-    		data.push_back(std::string(val));
+    		data.push_back(SArray<char>(val));
   		}
 	};	
 }

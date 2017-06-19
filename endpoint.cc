@@ -29,8 +29,10 @@ namespace ps {
 	/*传输完成,释放数据空间*/
 	inline void free_msg (void *data, void *hint){
 	    if (hint == NULL) {
-	    	delete [] static_cast<char*>(data);
-	    }
+			delete [] static_cast<char*>(data);
+		} else {
+		    delete static_cast<SArray<char>*>(hint);
+		}
 	}
 
 	/*确认消息发送者ID*/
@@ -183,9 +185,9 @@ namespace ps {
 
 		for(int i=0;i<n;i++){
 			zmq_msg_t data_msg;
-			int data_size = msg.data[i].length();
-			char* data = getCharPtr(msg.data[i],data_size);
-			zmq_msg_init_data(&data_msg, data, data_size, free_msg, NULL);
+			SArray<char>* data = new SArray<char>(msg.data[i]);
+			int data_size = data->size();
+			zmq_msg_init_data(&data_msg, data->data(), data->size(), free_msg, data);
 			if (i == n - 1) tag = 0;
 			while(true){
 				if (zmq_msg_send(&data_msg, socket, tag) == data_size) 
@@ -221,10 +223,12 @@ namespace ps {
 		        if (!more) break;
 		      } else {
 		        // zero-copy
-		        char* data;
-		        memcpy(data,(char*)zmq_msg_data(m),zmq_msg_size(m));
-		        // cout<<std::string(data)<<endl;
-		        msg.data.push_back(std::string(data));
+		        SArray<char> data;
+		        data.reset(buf, size, [m, size](char* buf) {
+            		zmq_msg_close(m);
+            		delete m;
+          			});
+        		msg.data.push_back(data);
 		        if (!zmq_msg_more(m)) { break; }
 		      }
 		}
@@ -254,7 +258,7 @@ namespace ps {
 	}
 
 	void Endpoint::Receiving() {
-		int count=0;
+		//int count=0;
 		while(true)
 		{
 			// cout<<++count<<": "<<endl;

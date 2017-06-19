@@ -37,21 +37,11 @@ namespace ps{
 			const std::vector<Val>& vals,
 			const std::vector<int>& lens ={},
 			int cmd = 0,
-			const Callback& cb=nullptr){
-			///
-			int ts=customer->NewRequest(ServerGroupID);
-			AddCallback(ts,cb);
-			KVPairs<Val> kvs;
-			kvs.keys=keys;
-			kvs.vals=vals;
-			kvs.lens=lens;
-			Send(ts,true,cmd,kvs);
-			return ts;
-		}
+			const Callback& cb=nullptr);
 
-		int Pull(const std::vector<Key>& keys,
-			const std::vector<Val>& vals,
-			const std::vector<int>& lens ={},
+		int Pull(const SArray<Key>& keys,
+			SArray<Val>* vals,
+			SArray<int>* lens =nullptr,
 			int cmd = 0,
 			const Callback& cb=nullptr);
 
@@ -107,24 +97,98 @@ namespace ps{
 	template <typename Val>
 	void Worker<Val>::Process(const message& msg) {
 
-	  	// store the data for pulling
-	 //  	int ts = msg.timestamp;
-		// if (!msg.push && msg.data.size()) {
-		// 	KVPairs<Val> kvs;
-		// 	kvs.keys = msg.data[0];
-		// 	kvs.vals = msg.data[1];
-		// 	if (msg.data.size() > (size_t)2) {
-		// 	    kvs.lens = msg.data[2];
-		// 	}
-		// 	mu_.lock();
-		// 	recv_kvs_[ts].push_back(kvs);
-		// 	mu_.unlock();
-		// }
+	  	int ts=msg.timestamp;
+	  	if(!msg.push&&msg.data.size()){
+	  		KVPairs<Val> kvs;
+	  		kvs.keys=msg.data[0];
+	  		kvs.vals=msg.data[1];
+	  		if(msg.data.size()>(size_t)2){
+	  			kvs.lens=msg.data[3];
+	  		}
+	  		mu_.lock();
+	  		recv_kvs_[ts].push_back(kvs);
+	  		mu_.unlock();
+	  	}
 
-		// // finished, run callbacks
-		// if (customer->NumResponse(ts) == Manager::Get()->NumServers() - 1)  {
-		// 	RunCallback(ts);
-		// }
+	  	if (customer->NumResponse(ts) == Manager::Get()->NumServers() - 1)  {
+		    RunCallback(ts);
+		}
+	}
+
+	template <typename Val>
+	int Worker<Val>::Push(const std::vector<Key>& keys,
+			const std::vector<Val>& vals,
+			const std::vector<int>& lens,
+			int cmd,
+			const Callback& cb){
+		
+		int ts=customer->NewRequest(ServerGroupID);
+		AddCallback(ts,cb);
+		KVPairs<Val> kvs;
+		kvs.keys=SArray<Key>(keys);
+		kvs.vals=SArray<Val>(vals);
+		kvs.lens=SArray<int>(lens); 
+		Send(ts,true,cmd,kvs);
+		return ts;
+	}
+
+	template <typename Val>
+	int Worker<Val>::Pull(const SArray<Key>& keys,
+			SArray<Val>* vals,
+			SArray<int>* lens,
+			int cmd,
+			const Callback& cb){
+
+		int ts=customer->NewRequest(ServerGroupID);
+
+		AddCallback(ts, [this, ts, keys, vals, lens, cb]() mutable {
+      		mu_.lock();
+		    auto& kvs = recv_kvs_[ts];
+		    mu_.unlock();
+
+      		// do check
+      		size_t total_key = 0, total_val = 0;
+      		for (const auto& s : kvs) {
+        		Range range = FindRange(keys, s.keys.front(), s.keys.back()+1);
+        		total_key += s.keys.size();
+        		total_val += s.vals.size();
+      		}
+
+      		// fill vals and lens
+      		std::sort(kvs.begin(), kvs.end(), [](
+          		const KVPairs<Val>& a, const KVPairs<Val>& b) {
+                  	return a.keys.front() < b.keys.front();
+        	});
+
+      		if (vals->empty()) {
+        		vals->resize(total_val);
+      		} 
+      		Val* p_vals = vals->data();
+      		int *p_lens = nullptr;
+      		if (lens) {
+        		if (lens->empty()) {
+          			lens->resize(keys.size());
+        		} 
+        		p_lens = lens->data();
+      		}
+      		for (const auto& s : kvs) {
+        		memcpy(p_vals, s.vals.data(), s.vals.size() * sizeof(Val));
+       	 		p_vals += s.vals.size();
+        		if (p_lens) {
+          			memcpy(p_lens, s.lens.data(), s.lens.size() * sizeof(int));
+          			p_lens += s.lens.size();
+        		}
+      		}
+
+      		mu_.lock();
+      		recv_kvs_.erase(ts);
+      		mu_.unlock();
+      		if (cb) cb();
+    	});
+
+  		KVPairs<Val> kvs; kvs.keys = keys;
+  		Send(ts, false, cmd, kvs);
+  		return ts;
 	}
 
 	template <typename Val>
@@ -148,6 +212,7 @@ namespace ps{
 	    typename Worker<Val>::SlicedKVs* sliced) {
 	  	
 	}
+
 }
 
 #endif

@@ -48,23 +48,38 @@ namespace ps{
 	template <typename Val>
 	void Server<Val>::Response(const KVMeta& req,const KVPairs<Val>& res){
 		///
+		message msg;
+		msg.customer_id = customer->Getid();
+		msg.request 	= false;
+		msg.push 		= req.push;
+		msg.cmd     	= req.cmd;
+		msg.timestamp 	= req.timestamp;
+		msg.receiver	= req.sender;
+		msg.sender		= Manager::Get()->GetEndpoint()->Current()->id;
+		if(res.keys.size()){
+			msg.AddData(res.keys);
+			msg.AddData(res.vals);
+			if(res.lens.size())
+				msg.AddData(res.lens);
+		}
+		Manager::Get()->GetEndpoint()->Send(msg);
 	}
 
 	template <typename Val>
 	void Server<Val>::Process(message& msg){
 		KVMeta meta;
-		meta.cmd=0;
-		meta.push=msg.push;
-		meta.sender=msg.sender;
-		meta.timestamp=msg.timestamp;
+		meta.cmd		= msg.cmd;
+		meta.push 		= msg.push;
+		meta.sender		= msg.sender;
+		meta.timestamp	= msg.timestamp;
 		KVPairs<Val> data;
 		int n=msg.data.size();
 		if(n){
-			std::string keys=msg.data[0];
-			std::string vals=msg.data[1];
+			data.keys=msg.data[0];
+			data.vals=msg.data[1];
 			if(n>2)
 			{
-				std::string lens=msg.data[2];
+				data.lens=msg.data[2];
 			}
 		}
 		request_handle_(meta,data,this);

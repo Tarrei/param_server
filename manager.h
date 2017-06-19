@@ -31,6 +31,7 @@ namespace ps{
 		void AddServers(){num_servers_++;}
 		// void SetWorkers(int num){num_workers_=num;}
 		// void SetServers(int num){num_servers_=num;}
+		
 		/*判断当前节点类型*/
 		bool IsWorker(){return is_worker_;}
 		bool IsServer(){return is_server_;}
