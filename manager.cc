@@ -38,6 +38,22 @@ namespace ps{
 		ep_->Stop();
 	}
 
+	void Manager::SetWorkerGroup(int id){
+		for (int g : {id, WorkerGroupID, WorkerGroupID + ServerGroupID,
+	        WorkerGroupID + SchedulerID,
+	        WorkerGroupID + ServerGroupID + SchedulerID}) {
+      		node_ids_[g].push_back(id);
+    	}
+	}
+
+	void Manager::SetServerGroup(int id){
+		for (int g : {id, ServerGroupID, WorkerGroupID + ServerGroupID,
+	        ServerGroupID + SchedulerID,
+	        WorkerGroupID + ServerGroupID + SchedulerID}) {
+      		node_ids_[g].push_back(id);
+    	}
+	}
+
 	Customer* Manager::GetCustomer(int id,int timeout) const{
 		Customer* obj = nullptr;
 		for (int i = 0; i < timeout*1000+1; ++i) {

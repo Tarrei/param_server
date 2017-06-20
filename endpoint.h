@@ -27,11 +27,11 @@ namespace ps{
 		~Endpoint(){}
 		void Start();
 		void Stop();
+		void Send(message& msg);
 		Node* Current(){
 			return &current_;
 		}
 	private:
-		void Send(message& msg);
 		void Receive(message& msg);
 		void Serialize(message& msg, char** meta_buf, int* meta_size);
 		void DeSerialize(message& msg, const char* meta_buf, int meta_size);

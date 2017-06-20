@@ -11,6 +11,8 @@
 #include "state.h"
 #include <algorithm>
 #include <unordered_map>
+#include <iostream>
+using namespace std;
 
 namespace ps{
 	template <typename Val>
@@ -71,7 +73,7 @@ namespace ps{
 	template <typename Val>
 	void Worker<Val>::Send(int timestamp, bool push, int cmd, const KVPairs<Val>& kvs){
 		//SlicedKVs sliced;
-		for (size_t i = 0; i < Manager::Get()->NumServers(); ++i) {
+		for (int i = 0; i < Manager::Get()->NumServers(); ++i) {
 		    //const auto& s = sliced[i];
 		    //if (!s.first) continue;
 		    message msg;
@@ -121,13 +123,24 @@ namespace ps{
 			const std::vector<int>& lens,
 			int cmd,
 			const Callback& cb){
-		
+
+		while(true)
+		{
+			if(Manager::Get()->GetEndpoint()->Current()->id!=Node::EmptyID)
+			{
+				cout<<Manager::Get()->GetEndpoint()->Current()->id<<endl;
+				break;
+			}
+		}	
+
 		int ts=customer->NewRequest(ServerGroupID);
+
 		AddCallback(ts,cb);
 		KVPairs<Val> kvs;
 		kvs.keys=SArray<Key>(keys);
 		kvs.vals=SArray<Val>(vals);
 		kvs.lens=SArray<int>(lens); 
+
 		Send(ts,true,cmd,kvs);
 		return ts;
 	}

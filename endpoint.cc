@@ -258,12 +258,13 @@ namespace ps {
 	}
 
 	void Endpoint::Receiving() {
-		//int count=0;
+		int count=0;
 		while(true)
 		{
-			// cout<<++count<<": "<<endl;
-			// cout<<"workers"<<": "<<Manager::Get()->NumWorkers()<<endl;
-			// cout<<"servers"<<": "<<Manager::Get()->NumServers()<<endl;
+			cout<<++count<<": "<<endl;
+			cout<<"workers"<<": "<<Manager::Get()->NumWorkers()<<endl;
+			cout<<"servers"<<": "<<Manager::Get()->NumServers()<<endl;
+			cout<<"node_ids_"<<": "<<Manager::Get()->NodeIDSize()<<endl;
 			message msg;
 			Receive(msg);
 			/*Scheduler message process*/
@@ -353,10 +354,14 @@ namespace ps {
 							for(unsigned int i=0;i<msg.node.size();i++)
 							{
 								Node node=msg.node[i];
-								if(node.role==Node::WORKER)
+								if(node.role==Node::WORKER){
 									Manager::Get()->AddWorkers();
-								else
+									Manager::Get()->SetWorkerGroup(node.id);
+								}
+								else{
 									Manager::Get()->AddServers();
+									Manager::Get()->SetServerGroup(node.id);
+								}
 
 								Connect(msg.node[i]);
 								//cout<<msg.node[i].id<<" "<<msg.node[i].port<<" "<<msg.node[i].role<<endl;

@@ -16,6 +16,9 @@
 #include <vector>
 #include <mutex>
 #include <map>
+#include <iostream>
+
+using namespace std;
  
 
 namespace ps{

@@ -12,6 +12,8 @@
 #include "state.h"
 #include <unordered_map>
 #include <mutex>
+#include <iostream>
+using namespace std;
 
 namespace ps{
 	class Customer;
@@ -49,20 +51,12 @@ namespace ps{
 			return num*2+9;
 		}
 
-		void SetWorkerGroup(int id){
-			for (int g : {id, WorkerGroupID, WorkerGroupID + ServerGroupID,
-	            WorkerGroupID + SchedulerID,
-	            WorkerGroupID + ServerGroupID + SchedulerID}) {
-      			node_ids_[g].push_back(id);
-    		}
-		}
+		void SetWorkerGroup(int id);
 
-		void SetServerGroup(int id){
-			for (int g : {id, ServerGroupID, WorkerGroupID + ServerGroupID,
-	            ServerGroupID + SchedulerID,
-	            WorkerGroupID + ServerGroupID + SchedulerID}) {
-      			node_ids_[g].push_back(id);
-    		}
+		void SetServerGroup(int id);
+
+		int NodeIDSize(){
+			return node_ids_.size();
 		}
 
 		Customer* GetCustomer(int id,int timeout=0) const;
@@ -70,6 +64,7 @@ namespace ps{
 		void RemoveCustomer(Customer* customer);
 		const std::vector<int>& GetNodeIDs(int node_id) const{
 			const auto it=node_ids_.find(node_id);
+			//it是空的话会出错，以后解决
 			return it->second;
 		}
 
@@ -81,6 +76,7 @@ namespace ps{
 		Endpoint* ep_;
 		int num_workers_=0,num_servers_=0;
 		bool is_worker_,is_server_,is_scheduler_;
+		//bool trans=true;//考虑用来作为允许传输标识符
 		time_t start_time_;
 		std::unordered_map<int,Customer*> customers_;
 		//还需要添加node_ids的初始化过程，思路可以是每次计算好num_workers_之后调用

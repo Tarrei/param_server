@@ -82,7 +82,7 @@ namespace ps{
 		std::vector<DataType> data_type;
 		std::vector<SArray<char>> data;
 		template <typename V>
-  		void AddData(const std::vector<V>& val) {
+  		void AddData(const SArray<V>& val) {
     		data_type.push_back(GetDataType<V>());
     		data.push_back(SArray<char>(val));
   		}

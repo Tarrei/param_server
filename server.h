@@ -14,6 +14,9 @@
 #include <string>
 #include <functional>
 #include <algorithm>
+// #include <iostream>
+
+// using namespace std;
 
 namespace ps{
 
@@ -82,6 +85,7 @@ namespace ps{
 				data.lens=msg.data[2];
 			}
 		}
+		// cout<<"message sender: "<<meta.sender<<endl;
 		request_handle_(meta,data,this);
 	}
 
