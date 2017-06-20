@@ -11,8 +11,8 @@
 #include "value.h"
 #include <utility>
 #include <vector>
+#include <unordered_map>
 #include <string>
-#include <functional>
 #include <algorithm>
 // #include <iostream>
 
@@ -23,10 +23,12 @@ namespace ps{
 	template <typename Val>
 	class Server:public Proc{
 	public:
+		using Proc::customer;
 		explicit Server(int proc_id):Proc(){
 			using namespace std::placeholders;
 			customer=new Customer(proc_id,std::bind(&Server<Val>::Process,this,_1));
 		}
+
 		virtual ~Server(){
 			delete customer;
 			customer=nullptr;
@@ -85,8 +87,8 @@ namespace ps{
 				data.lens=msg.data[2];
 			}
 		}
-		//cout<<"message sender: "<<meta.sender<<endl;
-		request_handle_(meta,data,this);
+		cout<<"message sender: "<<meta.sender<<endl;
+		//request_handle_(meta,data,this);
 	}
 
 }

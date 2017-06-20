@@ -24,7 +24,7 @@ namespace ps{
 		//num_servers_ =atoi(temp);
 		std::string role=Environment::Get()->find("ROLE");
 		is_worker_ = (role=="worker"||role=="WORKER");
-		is_server_ = (role=="server"||role=="worker");
+		is_server_ = (role=="server"||role=="SERVER");
 		is_scheduler_ = (role=="scheduler"||role=="SCHEDULER");
 
 	}
@@ -55,7 +55,9 @@ namespace ps{
 	}
 
 	Customer* Manager::GetCustomer(int id,int timeout) const{
+		cout<<customers_.size()<<endl;
 		Customer* obj = nullptr;
+		//cout<<"customers: "<<customers_.size()<<endl;
 		for (int i = 0; i < timeout*1000+1; ++i) {
 		    std::lock_guard<std::mutex> lk(mu_);
 		    const auto it = customers_.find(id);

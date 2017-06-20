@@ -67,7 +67,7 @@ namespace ps{
 		static const int empty = 0;
 		enum Command {EMPTY, ADD_NODE, TERMINATE, ACK, HEARTBEAT};
 		message():cmd(EMPTY),sender(empty),receiver(empty),
-			timestamp(empty),request(false),push(false),customer_id(-1){}
+			timestamp(empty),request(false),push(false),customer_id(empty){}
 		Command cmd;
 
 		int sender;

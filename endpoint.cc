@@ -148,6 +148,7 @@ namespace ps {
 		msg.timestamp=meta.timestamp();
 		msg.request=meta.request();
 		msg.push=meta.push();
+		msg.customer_id=meta.customer_id();
 		msg.data_type.resize(meta.data_type_size());
 		for (int i=0;i<meta.data_type_size();i++) {
 		    msg.data_type[i] = static_cast<DataType>(meta.data_type(i));
@@ -341,7 +342,8 @@ namespace ps {
 				switch(msg.cmd){
 					case message::EMPTY:{
 						if(msg.sender!=EmptyID&&msg.receiver==current_.id&&msg.customer_id!=-1){
-							auto* customer=Manager::Get()->GetCustomer(msg.customer_id,5);
+							int id=msg.customer_id;
+							Customer* customer = Manager::Get()->GetCustomer(id,5);
 							customer->PushToQueue(msg);
 						}
 					}

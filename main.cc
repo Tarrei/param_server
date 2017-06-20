@@ -9,6 +9,9 @@ void StartServer(){
 		return;
 	Server<float> server(0);
 	sleep(1);
+	while(true){
+		
+	}
 }
 
 void TrainWorker(){
