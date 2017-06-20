@@ -55,7 +55,6 @@ namespace ps{
 	}
 
 	Customer* Manager::GetCustomer(int id,int timeout) const{
-		cout<<customers_.size()<<endl;
 		Customer* obj = nullptr;
 		//cout<<"customers: "<<customers_.size()<<endl;
 		for (int i = 0; i < timeout*1000+1; ++i) {

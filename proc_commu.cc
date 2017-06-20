@@ -53,6 +53,11 @@ namespace ps{
 			if(msg.cmd==message::TERMINATE)
 				break;
 			recv_handle_(msg);
+			if(!msg.request){
+				std::lock_guard<std::mutex> lk(tracker_mu_);
+      			tracker_[msg.timestamp].second++;
+      			tracker_cond_.notify_all();
+			}
 		}
 	}
 }

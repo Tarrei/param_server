@@ -57,7 +57,7 @@ namespace ps{
 		msg.customer_id = customer->Getid();
 		msg.request 	= false;
 		msg.push 		= req.push;
-		msg.cmd     	= req.cmd;
+		msg.cmd     	= message::Command(req.cmd);
 		msg.timestamp 	= req.timestamp;
 		msg.receiver	= req.sender;
 		msg.sender		= Manager::Get()->GetEndpoint()->Current()->id;
@@ -87,8 +87,7 @@ namespace ps{
 				data.lens=msg.data[2];
 			}
 		}
-		cout<<"message sender: "<<meta.sender<<endl;
-		//request_handle_(meta,data,this);
+		request_handle_(meta,data,this);
 	}
 
 }

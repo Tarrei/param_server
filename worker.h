@@ -112,8 +112,8 @@ namespace ps{
 	  		recv_kvs_[ts].push_back(kvs);
 	  		mu_.unlock();
 	  	}
-
-	  	if (customer->NumResponse(ts) == Manager::Get()->NumServers() - 1)  {
+	  	// cout<<"num response: "<<customer->NumResponse(ts)<<" num servers: "<<Manager::Get()->NumServers()<<endl;
+	  	if (customer->NumResponse(ts) == Manager::Get()->NumServers()-1){
 		    RunCallback(ts);
 		}
 	}
