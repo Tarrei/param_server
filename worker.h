@@ -149,53 +149,54 @@ namespace ps{
 			const Callback& cb){
 
 		int ts=customer->NewRequest(ServerGroupID);
+		// AddCallback(ts, [this, ts, keys, vals, lens, cb]() mutable {
+  //     		mu_.lock();
+		//     auto& kvs = recv_kvs_[ts];
+		//     mu_.unlock();
 
-		AddCallback(ts, [this, ts, keys, vals, lens, cb]() mutable {
-      		mu_.lock();
-		    auto& kvs = recv_kvs_[ts];
-		    mu_.unlock();
+  //     		// do check
+  //     		size_t total_key = 0, total_val = 0;
+  //     		for (const auto& s : kvs) {
+  //       		//Range range = FindRange(keys, s.keys.front(), s.keys.back()+1);
+  //       		total_key += s.keys.size();
+  //       		total_val += s.vals.size();
+  //     		}
 
-      		// do check
-      		size_t total_key = 0, total_val = 0;
-      		for (const auto& s : kvs) {
-        		Range range = FindRange(keys, s.keys.front(), s.keys.back()+1);
-        		total_key += s.keys.size();
-        		total_val += s.vals.size();
-      		}
+  //     		// fill vals and lens
+  //     		std::sort(kvs.begin(), kvs.end(), [](
+  //         		const KVPairs<Val>& a, const KVPairs<Val>& b) {
+  //                 	return a.keys.front() < b.keys.front();
+  //       	});
 
-      		// fill vals and lens
-      		std::sort(kvs.begin(), kvs.end(), [](
-          		const KVPairs<Val>& a, const KVPairs<Val>& b) {
-                  	return a.keys.front() < b.keys.front();
-        	});
+  //     		if (vals->empty()) {
+  //       		vals->resize(total_val);
+  //     		} 
+  //     		Val* p_vals = vals->data();
+  //     		int *p_lens = nullptr;
+  //     		if (lens) {
+  //       		if (lens->empty()) {
+  //         			lens->resize(keys.size());
+  //       		} 
+  //       		p_lens = lens->data();
+  //     		}
+  //     		for (const auto& s : kvs) {
+  //       		memcpy(p_vals, s.vals.data(), s.vals.size() * sizeof(Val));
+  //      	 		p_vals += s.vals.size();
+  //       		if (p_lens) {
+  //         			memcpy(p_lens, s.lens.data(), s.lens.size() * sizeof(int));
+  //         			p_lens += s.lens.size();
+  //       		}
+  //     		}
 
-      		if (vals->empty()) {
-        		vals->resize(total_val);
-      		} 
-      		Val* p_vals = vals->data();
-      		int *p_lens = nullptr;
-      		if (lens) {
-        		if (lens->empty()) {
-          			lens->resize(keys.size());
-        		} 
-        		p_lens = lens->data();
-      		}
-      		for (const auto& s : kvs) {
-        		memcpy(p_vals, s.vals.data(), s.vals.size() * sizeof(Val));
-       	 		p_vals += s.vals.size();
-        		if (p_lens) {
-          			memcpy(p_lens, s.lens.data(), s.lens.size() * sizeof(int));
-          			p_lens += s.lens.size();
-        		}
-      		}
+  //     		mu_.lock();
+  //     		recv_kvs_.erase(ts);
+  //     		mu_.unlock();
+  //     		if (cb) cb();
+  //   	});
 
-      		mu_.lock();
-      		recv_kvs_.erase(ts);
-      		mu_.unlock();
-      		if (cb) cb();
-    	});
+  		KVPairs<Val> kvs; 
+  		kvs.keys = keys;
 
-  		KVPairs<Val> kvs; kvs.keys = keys;
   		Send(ts, false, cmd, kvs);
   		return ts;
 	}

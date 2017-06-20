@@ -57,7 +57,7 @@ namespace ps{
 		msg.customer_id = customer->Getid();
 		msg.request 	= false;
 		msg.push 		= req.push;
-		msg.cmd     	= message::Command(req.cmd);
+		//msg.cmd     	= message::Command(req.cmd);
 		msg.timestamp 	= req.timestamp;
 		msg.receiver	= req.sender;
 		msg.sender		= Manager::Get()->GetEndpoint()->Current()->id;

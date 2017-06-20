@@ -239,8 +239,10 @@ class SArray {
   /** \brief get the const shared pointer */
   inline const std::shared_ptr<V>& ptr() const { return ptr_; }
 
-  inline V back() const { CHECK(!empty()); return data()[size_-1]; }
-  inline V front() const { CHECK(!empty()); return data()[0]; }
+  inline V back() const { //CHECK(!empty()); 
+    return data()[size_-1]; }
+  inline V front() const { //CHECK(!empty()); 
+    return data()[0]; }
   inline V& operator[] (int i) { return data()[i]; }
   inline const V& operator[] (int i) const { return data()[i]; }
 

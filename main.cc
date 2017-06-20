@@ -26,6 +26,14 @@ public:
                 res.vals[i] = store[key];
             }
         }
+
+        // if(!req_meta.push){
+        // 	for(size_t i=0;i<res.vals.size();i++)
+        // 	{
+        // 		cout<<res.vals[i]<<" ";
+        // 	}
+        // 	cout<<endl;
+        // }
         server->Response(req_meta, res);
 	}
 private:
@@ -61,8 +69,11 @@ void TrainWorker(){
 	for(int i=0;i<repeat;i++){
 		ts.push_back(worker.Push(keys,vals));
 	}
+	SArray<Key> key(keys);
+	SArray<float> val;
+	worker.Wait(worker.Pull(key,&val));
 	while(true){
-
+		
 	}
 }
 
