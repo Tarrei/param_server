@@ -92,6 +92,7 @@ namespace ps{
 		        	msg.AddData(kvs.lens);
 		   		}
 			}
+
 			Manager::Get()->GetEndpoint()->Send(msg);
   		}
 	}
@@ -124,14 +125,10 @@ namespace ps{
 			int cmd,
 			const Callback& cb){
 
-		while(true)
-		{
-			if(Manager::Get()->GetEndpoint()->Current()->id!=Node::EmptyID)
-			{
-				cout<<Manager::Get()->GetEndpoint()->Current()->id<<endl;
-				break;
-			}
-		}	
+		// while(true){
+		// 	if(Manager::Get()->GetEndpoint()->Current()->id!=Node::EmptyID)
+		// 		break;
+		// }	
 
 		int ts=customer->NewRequest(ServerGroupID);
 
@@ -140,7 +137,6 @@ namespace ps{
 		kvs.keys=SArray<Key>(keys);
 		kvs.vals=SArray<Val>(vals);
 		kvs.lens=SArray<int>(lens); 
-
 		Send(ts,true,cmd,kvs);
 		return ts;
 	}

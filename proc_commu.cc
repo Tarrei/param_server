@@ -53,6 +53,7 @@ namespace ps{
 			if(msg.cmd==message::TERMINATE)
 				break;
 			recv_handle_(msg);
+			//cout<<"i get a meesage: "<<msg.sender<<endl;
 		}
 	}
 }

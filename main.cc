@@ -7,15 +7,15 @@ using namespace ps;
 void StartServer(){
 	if(!IsServer())
 		return;
-	// auto server=new Server<float>(0);
-	// sleep(1000);
+	Server<float> server(0);
+	sleep(1);
 }
 
 void TrainWorker(){
 	if(!IsWorker())
 		return;
 	Worker<float> worker(0);
-	sleep(1000);
+	sleep(1);
 	int num=10;
 	vector<Key> keys(num);
 	vector<float> vals(num);

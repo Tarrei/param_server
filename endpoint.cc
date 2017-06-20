@@ -182,7 +182,6 @@ namespace ps {
 				break;
 		}
 		zmq_msg_close(&meta_msg);
-
 		for(int i=0;i<n;i++){
 			zmq_msg_t data_msg;
 			SArray<char>* data = new SArray<char>(msg.data[i]);
@@ -209,14 +208,12 @@ namespace ps {
 			if (i == 0) {
 		        // identify
 		        msg.sender = MesSenderID(buf, size);
-		        // cout<<msg.sender<<endl;
 		        msg.receiver = current_.id;
 		        zmq_msg_close(m);
 		        delete m;
 		      } else if (i == 1) {
 		        // task
 		        DeSerialize(msg, buf, size);
-		        // cout<<msg.node[0].port<<endl;
 		        zmq_msg_close(m);
 		        bool more = zmq_msg_more(m);
 		        delete m;
@@ -262,9 +259,10 @@ namespace ps {
 		while(true)
 		{
 			cout<<++count<<": "<<endl;
-			cout<<"workers"<<": "<<Manager::Get()->NumWorkers()<<endl;
-			cout<<"servers"<<": "<<Manager::Get()->NumServers()<<endl;
-			cout<<"node_ids_"<<": "<<Manager::Get()->NodeIDSize()<<endl;
+			cout<<"workers: "<<Manager::Get()->NumWorkers()<<endl;
+			cout<<"servers: "<<Manager::Get()->NumServers()<<endl;
+			cout<<"node_ids_: "<<Manager::Get()->NodeIDSize()<<endl;
+
 			message msg;
 			Receive(msg);
 			/*Scheduler message process*/
