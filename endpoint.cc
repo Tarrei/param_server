@@ -341,7 +341,10 @@ namespace ps {
 			else{
 				switch(msg.cmd){
 					case message::EMPTY:{
-						
+						if(msg.sender!=EmptyID&&msg.receiver==current_.id&&msg.customer_id!=-1){
+							auto* customer=Manager::Get()->GetCustomer(msg.customer_id,5);
+							customer->PushToQueue(msg);
+						}
 					}
 					case message::ADD_NODE:{
 						if(msg.sender==SchedulerID&&!msg.request){
